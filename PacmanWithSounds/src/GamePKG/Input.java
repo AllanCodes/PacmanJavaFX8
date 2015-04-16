@@ -35,7 +35,7 @@ public class Input {
     public void addListeners() {
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
-        scene.addEventFilter(KeyEvent.KEY_RELEASED , keyReleasedEventHandler);
+        scene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 
     }
 

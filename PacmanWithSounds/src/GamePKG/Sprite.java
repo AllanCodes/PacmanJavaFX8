@@ -1,14 +1,8 @@
 package GamePKG;
 
-import javafx.animation.Animation;
-import javafx.animation.PathTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.util.Duration;
 
 public abstract class Sprite {
 
@@ -40,8 +34,6 @@ public abstract class Sprite {
 
         addToLayer(); // add the sprite image to the Pane called "layer"
     }
-    
- 
 
     // move the sprite by dx,dy
     public void move() {

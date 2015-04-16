@@ -12,9 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
-import javafx.animation.PathTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -23,16 +21,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 
 public class Game extends Application {
@@ -43,20 +36,15 @@ public class Game extends Application {
     Pane scoreLayer;
 
     Image playerImage;
-    Image enemyImage, enemyImage2, enemyImage3, enemyImage4;
+    Image enemyImage;
     Image BG_Maze;
     
     MySounds mySounds;
 
     Pacman player;
     List<Ghost> enemies = new ArrayList<>();
-    
-    Ghost ghost1,ghost2,ghost3,ghost4;
-    
-    ImageView enemyImageIV;
-    
+
     Text collisionText = new Text();
-    
     boolean collision = false;
 
     Scene scene;
@@ -74,7 +62,7 @@ public class Game extends Application {
         BG_Maze = new Image ("images/Pac-ManMaze_448x576.png");  // read the image in
         ImageView imageView = new ImageView (BG_Maze); // create an ImageView object to hold this image.
 		playfieldLayer.getChildren().add(imageView); // put the image inside the pane.
-        drawRectangles();
+        
         root.getChildren().add(playfieldLayer);
         root.getChildren().add(scoreLayer);
 
@@ -84,7 +72,6 @@ public class Game extends Application {
         primaryStage.setWidth(464); // need 8 pixels for each side (16 total). Padding horizontally for window borders.
         primaryStage.setHeight(614); // need 38 pixels for padding vertically for top/bottom window borders.
         primaryStage.show();
-
 
         mySounds = new MySounds();
         mySounds.playClip(1);
@@ -119,15 +106,13 @@ public class Game extends Application {
             }
         };
         gameLoop.start();
-     
+  
+        
     }
 
     private void loadGame() {
         playerImage = new Image("Images/PacmanSprite_24x24_1Frame.png");
-        enemyImage  = new Image("Images/Pinky_PinkGhost_16x16_1Frame.png");
-        enemyImage2 = new Image("Images/Blinky_RedGhost_16x16_1Frame.png");
-        enemyImage3 = new Image("Images/Clyde_OrangeGhost_16x16_1Frame.png");
-        enemyImage4 = new Image("Images/Inky_CyanGhost_16x16_1Frame.png");
+        enemyImage  = new Image("Images/Pinky_PinkGhost_16x16_1Frame.png" );
         
         // player input
         Input input = new Input(scene);
@@ -145,16 +130,10 @@ public class Game extends Application {
         player = new Pacman(playfieldLayer, image, x, y, 0, 0, 1, input,mySounds);
         
         // create ghost sprite
-       
-        ghost1 = new Ghost( playfieldLayer, enemyImage, x, 228, 0, 0);
-        ghost2 = new Ghost(playfieldLayer, enemyImage2, x + 32, 228, 0, 0);
-        ghost3 = new Ghost(playfieldLayer, enemyImage3, x-32, 228,0,0);
-        ghost4 = new Ghost(playfieldLayer,enemyImage4,x,320,0,0);
-      
+        Image image2 = enemyImage;
+        Ghost ghost1 = new Ghost( playfieldLayer, image2, x, 228, 0, 0);
         enemies.add(ghost1);
-        enemies.add(ghost2);
-        enemies.add(ghost3);
-        enemies.add(ghost4);
+        
     }
 
     private void createScoreLayer() {
@@ -192,19 +171,6 @@ public class Game extends Application {
         } else {
             collisionText.setText("");
         }
-    }
-    
-    
-    
-    private void drawRectangles() { 
-    	ArrayList<Rectangle> recArray = new ArrayList<Rectangle>();
-    	recArray.add(new Rectangle(39,87,51,35));
-    	recArray.add(new Rectangle(118,87,68,35));
-    	for(Rectangle i : recArray) {
-    		i.setFill(Color.TRANSPARENT);
-    	}
-    	
-    	playfieldLayer.getChildren().addAll(recArray);
     }
 
     public static void main(String[] args) {

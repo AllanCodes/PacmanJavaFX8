@@ -71,9 +71,5 @@ public class Pacman extends Sprite {
             x = Settings.SCENE_WIDTH-w;
         }
     }
-    
-    public void checkCollisionWalls() {
-    	
-    }
 
 } // Player
