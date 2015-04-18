@@ -106,8 +106,6 @@ public class Game extends Application {
             }
         };
         gameLoop.start();
-  
-        
     }
 
     private void loadGame() {
@@ -133,7 +131,6 @@ public class Game extends Application {
         Image image2 = enemyImage;
         Ghost ghost1 = new Ghost( playfieldLayer, image2, x, 228, 0, 0);
         enemies.add(ghost1);
-        
     }
 
     private void createScoreLayer() {
