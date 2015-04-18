@@ -27,7 +27,7 @@ public class MySounds {
 	
 	public Clip PacBeginning  = loadClip("/Sounds/pacman_beginning.wav");
 	public Clip PacChomp      = loadClip("/Sounds/pacman_chomp.wav");
-	
+	public Clip PacGhostEat   = loadClip("/Sounds/pacman_eatghost.wav");
 	/**
 	 * Create the frame.
 	 */
@@ -54,6 +54,7 @@ public class MySounds {
 		
 	} // Clip
 	
+
 	public void playClip( int index )
 	{
 		if (index == 1)
@@ -70,6 +71,13 @@ public class MySounds {
 			      PacChomp.start();
 			      }
 			   }
+			else if(index == 3) {
+				if (!PacGhostEat.isRunning()) {
+					stopClip(3);
+					PacGhostEat.start();
+				}
+				PacGhostEat.setFramePosition(0);
+			}
 	} // playClip
 	
 	public void stopClip( int index )

@@ -53,6 +53,8 @@ public class Pacman extends Sprite {
         
         checkBounds(); // ensure the sprite can't move outside of the screen
     }
+    
+
 
     // check to see if Pacman is hitting the 4 sides of the window.
     private void checkBounds() {

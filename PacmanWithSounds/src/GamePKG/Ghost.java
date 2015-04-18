@@ -8,5 +8,9 @@ public class Ghost extends Sprite {
     public Ghost(Pane layer, Image image, double x, double y, double dx, double dy ) {
         super(layer, image, x, y, dx, dy);
     }
+    
+    public void removeGhost() {
+    	
+    }
 
 }
