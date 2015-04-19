@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -37,7 +38,7 @@ public class Game extends Application {
     Pane scoreLayer;
 
     Image playerImage;
-    Image enemyImage;
+    Image enemyImage, enemyImage2, enemyImage3, enemyImage4;
     Image BG_Maze;
     
     MySounds mySounds;
@@ -46,6 +47,9 @@ public class Game extends Application {
     Pacman player;
     List<Ghost> enemies = new ArrayList<>();
 
+    ArrayList<Circle> dots;
+    
+    
     Text collisionText = new Text();
     boolean collision = false;
 
@@ -81,7 +85,7 @@ public class Game extends Application {
         loadGame(); // create sprites
         createScoreLayer();
         drawRectangles();
-
+        drawDots();
         // create the main game loop.
         AnimationTimer gameLoop = new AnimationTimer() {
 
@@ -98,6 +102,7 @@ public class Game extends Application {
                 // check for collisions
                 checkCollisions();
                 boxCollide();
+                dotCollide();
 
                 // update Pacman and ghost sprites in scene
                 player.updateUI();
@@ -177,11 +182,27 @@ public class Game extends Application {
     		}
     	}
     }
+    
+    private void dotCollide() {
+    	collision = false;
+    	for (Circle dot : dots) {
+    		if(player.collidesWith(dot)) {
+    			collision = true;
+    			removeDot(dot);
+    		}
+    	}
+    }
+    
+    public void removeDot(Circle dot) {
+    	playfieldLayer.getChildren().remove(dot);
+    }
 			
     private void loadGame() {
         playerImage = new Image("Images/PacmanSprite_24x24_1Frame.png");
         enemyImage  = new Image("Images/Pinky_PinkGhost_16x16_1Frame.png" );
-        
+        enemyImage2 = new Image("Images/Clyde_OrangeGhost_16x16_1Frame.png");
+        enemyImage3 = new Image("Images/Inky_CyanGhost_16x16_1Frame.png");
+        enemyImage4 = new Image("Images/Blinky_RedGhost_16x16_1Frame.png");
         // player input
         Input input = new Input(scene);
 
@@ -199,8 +220,18 @@ public class Game extends Application {
         
         // create ghost sprite
         Image image2 = enemyImage;
-        Ghost ghost1 = new Ghost( playfieldLayer, image2, x, 228, 0, 0);
+        Image image3 = enemyImage2;
+        Image image4 = enemyImage3;
+        Image image5 = enemyImage4;
+        Ghost ghost1 = new Ghost( playfieldLayer, image2, x, 280, 0, 0);
+        Ghost ghost2 = new Ghost(playfieldLayer, image3, x + 20, 280, 0, 0);
+        Ghost ghost3 = new Ghost(playfieldLayer,image4, x - 20, 280, 0,0);
+        Ghost ghost4 = new Ghost(playfieldLayer, image5, x, 260, 0,0);
+        
         enemies.add(ghost1);
+        enemies.add(ghost2);
+        enemies.add(ghost3);
+        enemies.add(ghost4);
     }
 
     private void createScoreLayer() {
@@ -237,6 +268,18 @@ public class Game extends Application {
         }
         
      }
+    
+    public void drawDots() {
+    	dots = new ArrayList<Circle>();
+    	dots.add(new Circle(20,75,4,Color.YELLOW));
+    	dots.add(new Circle(20,95,4,Color.YELLOW));
+    	dots.add(new Circle(20,115,4,Color.YELLOW));
+    	dots.add(new Circle(20,135,4,Color.YELLOW));
+    	dots.add(new Circle(20,155,4,Color.YELLOW));
+    	dots.add(new Circle(20,175,4,Color.YELLOW));
+    	playfieldLayer.getChildren().addAll(dots);
+    	
+    }
     
 
     public static void main(String[] args) {

@@ -3,6 +3,7 @@ package GamePKG;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Sprite {
@@ -47,6 +48,11 @@ public abstract class Sprite {
 
 public boolean collidesWith(Rectangle block) {
 		return (block.intersects(x, y, frameWidth, frameHeight)); // Collision detection with rectangles and sprite frame
+
+}
+
+public boolean collidesWith(Circle dot) {
+	return (dot.intersects(x, y, frameWidth, frameHeight)); 
 
 }
 
