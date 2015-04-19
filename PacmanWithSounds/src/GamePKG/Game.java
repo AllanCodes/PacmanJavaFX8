@@ -15,8 +15,10 @@ import java.util.Random;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -49,8 +51,7 @@ public class Game extends Application {
 
     ArrayList<Circle> dots;
     int score = 0;
-    
-    Text collisionText = new Text();
+    Label scoreLabel;
     boolean collision = false;
 
     Scene scene;
@@ -62,18 +63,21 @@ public class Game extends Application {
 
         // create layers
         playfieldLayer = new Pane();
-        scoreLayer = new Pane();
+
+        scoreLabel = new Label("Score: " + Integer.toString(score));
+        scoreLabel.setLayoutX(250);
+        scoreLabel.setLayoutY(250);
+        scoreLabel.setTextFill(Color.BLUE);
+        
         
         // note in the Settings class, SCENE_WIDTH and SCENE_HEIGHT are set to the size of the image above 448x576.
-        BG_Maze = new Image ("images/Pac-ManMaze_448x576.png");  // read the image in
-        ImageView imageView = new ImageView (BG_Maze); // create an ImageView object to hold this image.
-		playfieldLayer.getChildren().add(imageView); // put the image inside the pane.
-        
-        root.getChildren().add(playfieldLayer);
-        root.getChildren().add(scoreLayer);
+       BG_Maze = new Image ("images/Pac-ManMaze_448x576.png");  // read the image in
+       ImageView imageView = new ImageView (BG_Maze); // create an ImageView object to hold this image.
+       playfieldLayer.getChildren().add(scoreLabel);
+		//playfieldLayer.getChildren().add(imageView); // put the image inside the pane.
+       root.getChildren().add(playfieldLayer);
 
         scene = new Scene( root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
-
         primaryStage.setScene(scene);
         primaryStage.setWidth(464); // need 8 pixels for each side (16 total). Padding horizontally for window borders.
         primaryStage.setHeight(614); // need 38 pixels for padding vertically for top/bottom window borders.
@@ -83,9 +87,10 @@ public class Game extends Application {
         mySounds.playClip(1);
         
         loadGame(); // create sprites
-       // createScoreLayer();
+      //  createScoreLayer();
         drawRectangles();
         drawDots();
+        
         // create the main game loop.
         AnimationTimer gameLoop = new AnimationTimer() {
 
@@ -111,7 +116,9 @@ public class Game extends Application {
                 // check if sprite can be removed and remove it if needed
 
                 // update score, health, etc
-                //updateScore();
+                drawScore();
+                
+                
             }
         };
         gameLoop.start();
@@ -182,13 +189,7 @@ public class Game extends Application {
     		}
     	}
     }
-    
-    public void checkScore() {
-    	
-    	for (Circle c : dots) {
-    		
-    	}
-    }
+   
     
     Circle temp; //stores the temporary dot that has to be removed
     
@@ -200,7 +201,6 @@ public class Game extends Application {
     			temp = dot;
     			removeDot(dot);
     			score++;
-    			System.out.println(score);
     		}
     	}
     	if(collision == true) {
@@ -249,22 +249,25 @@ public class Game extends Application {
         enemies.add(ghost4);
     }
 
-//    private void createScoreLayer() {
-//    	
-//        collisionText.setFont( Font.font( null, FontWeight.BOLD, 64));
-//        collisionText.setStroke(Color.BLACK);
-//        collisionText.setFill(Color.RED);
+//    private void createScoreLayer() {    	
+//        scoreBoard.setFont( Font.font( null, FontWeight.BOLD, 64));
+//        scoreBoard.setStroke(Color.BLACK);
+//        scoreBoard.setFill(Color.RED);
 //
-//        scoreLayer.getChildren().add( collisionText);
+//        scoreLayer.getChildren().add( scoreBoard);
 //
 //        // TODO: quick-hack to ensure the text is centered; usually you don't have that; instead you have a health bar on top
-//        double x = (Settings.SCENE_WIDTH - collisionText.getBoundsInLocal().getWidth()) / 2;
-//        double y = (Settings.SCENE_HEIGHT - collisionText.getBoundsInLocal().getHeight()) / 2;
-//        collisionText.relocate(x, y);
-//        collisionText.setText("");
+//        double x = (Settings.SCENE_WIDTH - scoreBoard.getBoundsInLocal().getWidth()) / 2;
+//        double y = (Settings.SCENE_HEIGHT - scoreBoard.getBoundsInLocal().getHeight()) / 2;
+//        scoreBoard.relocate(x, y);
+//        scoreBoard.setText("");
 //
-//        collisionText.setBoundsType(TextBoundsType.VISUAL);
-//    }
+//        scoreBoard.setBoundsType(TextBoundsType.VISUAL);
+   //}
+    
+    public void drawScore() { 
+    	scoreLabel.setText("Score: " + Integer.toString(score));
+    }
     
     
     private void checkCollisions() {
@@ -339,7 +342,25 @@ public class Game extends Application {
     	dots.add(new Circle(425,510,4,Color.YELLOW));
     	dots.add(new Circle(425,530,4,Color.YELLOW));
     	
-    	
+    	dots.add(new Circle(40,135,4,Color.YELLOW));
+    	dots.add(new Circle(60,135,4,Color.YELLOW));
+    	dots.add(new Circle(80,135,4,Color.YELLOW));
+    	dots.add(new Circle(100,135,4,Color.YELLOW));
+    	dots.add(new Circle(120,135,4,Color.YELLOW));
+    	dots.add(new Circle(140,135,4,Color.YELLOW));
+    	dots.add(new Circle(160,135,4,Color.YELLOW));
+    	dots.add(new Circle(180,135,4,Color.YELLOW));
+    	dots.add(new Circle(200,135,4,Color.YELLOW));
+    	dots.add(new Circle(220,135,4,Color.YELLOW));
+    	dots.add(new Circle(240,135,4,Color.YELLOW));
+    	dots.add(new Circle(260,135,4,Color.YELLOW));
+    	dots.add(new Circle(280,135,4,Color.YELLOW));
+    	dots.add(new Circle(300,135,4,Color.YELLOW));
+    	dots.add(new Circle(320,135,4,Color.YELLOW));
+    	dots.add(new Circle(340,135,4,Color.YELLOW));
+    	dots.add(new Circle(360,135,4,Color.YELLOW));
+    	dots.add(new Circle(380,135,4,Color.YELLOW));
+    	dots.add(new Circle(400,135,4,Color.YELLOW));
     	
     	
     	
