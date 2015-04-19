@@ -83,7 +83,7 @@ public class Game extends Application {
         mySounds.playClip(1);
         
         loadGame(); // create sprites
-        createScoreLayer();
+       // createScoreLayer();
         drawRectangles();
         drawDots();
         // create the main game loop.
@@ -244,23 +244,22 @@ public class Game extends Application {
         enemies.add(ghost4);
     }
 
-    private void createScoreLayer() {
-    	
-        collisionText.setFont( Font.font( null, FontWeight.BOLD, 64));
-        collisionText.setStroke(Color.BLACK);
-        collisionText.setFill(Color.RED);
-
-        scoreLayer.getChildren().add( collisionText);
-
-        // TODO: quick-hack to ensure the text is centered; usually you don't have that; instead you have a health bar on top
-        collisionText.setText("Collision");
-        double x = (Settings.SCENE_WIDTH - collisionText.getBoundsInLocal().getWidth()) / 2;
-        double y = (Settings.SCENE_HEIGHT - collisionText.getBoundsInLocal().getHeight()) / 2;
-        collisionText.relocate(x, y);
-        collisionText.setText("");
-
-        collisionText.setBoundsType(TextBoundsType.VISUAL);
-    }
+//    private void createScoreLayer() {
+//    	
+//        collisionText.setFont( Font.font( null, FontWeight.BOLD, 64));
+//        collisionText.setStroke(Color.BLACK);
+//        collisionText.setFill(Color.RED);
+//
+//        scoreLayer.getChildren().add( collisionText);
+//
+//        // TODO: quick-hack to ensure the text is centered; usually you don't have that; instead you have a health bar on top
+//        double x = (Settings.SCENE_WIDTH - collisionText.getBoundsInLocal().getWidth()) / 2;
+//        double y = (Settings.SCENE_HEIGHT - collisionText.getBoundsInLocal().getHeight()) / 2;
+//        collisionText.relocate(x, y);
+//        collisionText.setText("");
+//
+//        collisionText.setBoundsType(TextBoundsType.VISUAL);
+//    }
     
     
     private void checkCollisions() {
@@ -281,7 +280,8 @@ public class Game extends Application {
     
     public void drawDots() {
     	dots = new ArrayList<Circle>();
-    	dots.add(new Circle(20,75,4,Color.YELLOW));
+    	//left vertical
+    	//dots.add(new Circle(20,75,4,Color.YELLOW)); big dot
     	dots.add(new Circle(20,95,4,Color.YELLOW));
     	dots.add(new Circle(20,115,4,Color.YELLOW));
     	dots.add(new Circle(20,135,4,Color.YELLOW));
@@ -294,6 +294,48 @@ public class Game extends Application {
     	dots.add(new Circle(20,490,4,Color.YELLOW));
     	dots.add(new Circle(20,510,4,Color.YELLOW));
     	dots.add(new Circle(20,530,4,Color.YELLOW));
+    	
+    	//top horizontal
+    	dots.add(new Circle(40,75,4,Color.YELLOW));
+    	dots.add(new Circle(60,75,4,Color.YELLOW));
+    	dots.add(new Circle(80,75,4,Color.YELLOW));
+    	dots.add(new Circle(100,75,4,Color.YELLOW));
+    	dots.add(new Circle(120,75,4,Color.YELLOW));
+    	dots.add(new Circle(140,75,4,Color.YELLOW));
+    	dots.add(new Circle(160,75,4,Color.YELLOW));
+    	dots.add(new Circle(180,75,4,Color.YELLOW));
+    	dots.add(new Circle(200,75,4,Color.YELLOW));
+    	dots.add(new Circle(250,75,4,Color.YELLOW));
+    	dots.add(new Circle(270,75,4,Color.YELLOW));
+    	dots.add(new Circle(290,75,4,Color.YELLOW));
+    	dots.add(new Circle(310,75,4,Color.YELLOW));
+    	dots.add(new Circle(330,75,4,Color.YELLOW));
+    	dots.add(new Circle(350,75,4,Color.YELLOW));
+    	dots.add(new Circle(370,75,4,Color.YELLOW));
+    	dots.add(new Circle(390,75,4,Color.YELLOW));
+    	dots.add(new Circle(410,75,4,Color.YELLOW));
+    //	dots.add(new Circle(430,75,4,Color.YELLOW)); This will be big dot
+    	dots.add(new Circle(40,75,4,Color.YELLOW));
+    	
+    	//right vertical
+    	
+    	//big dot here
+    	dots.add(new Circle(425,95,4,Color.YELLOW));
+    	dots.add(new Circle(425,95,4,Color.YELLOW));
+    	dots.add(new Circle(425,115,4,Color.YELLOW));
+    	dots.add(new Circle(425,135,4,Color.YELLOW));
+    	dots.add(new Circle(425,155,4,Color.YELLOW));
+    	dots.add(new Circle(425,175,4,Color.YELLOW));
+    	dots.add(new Circle(425,375,4,Color.YELLOW));
+    	dots.add(new Circle(425,395,4,Color.YELLOW));
+    	dots.add(new Circle(425,415,4,Color.YELLOW));
+    	dots.add(new Circle(425,470,4,Color.YELLOW));
+    	dots.add(new Circle(425,490,4,Color.YELLOW));
+    	dots.add(new Circle(425,510,4,Color.YELLOW));
+    	dots.add(new Circle(425,530,4,Color.YELLOW));
+    	
+    	
+    	
     	
     	
     	playfieldLayer.getChildren().addAll(dots);
