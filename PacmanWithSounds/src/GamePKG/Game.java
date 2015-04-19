@@ -190,16 +190,21 @@ public class Game extends Application {
     	}
     }
     
+    Circle temp; //stores the temporary dot that has to be removed
+    
     private void dotCollide() {
     	collision = false;
     	for (Circle dot : dots) {
     		if(player.collidesWith(dot)) {
     			collision = true;
-    			dots.remove(dot);
+    			temp = dot;
     			removeDot(dot);
     			score++;
     			System.out.println(score);
     		}
+    	}
+    	if(collision == true) {
+    		dots.remove(temp);
     	}
     }
     
