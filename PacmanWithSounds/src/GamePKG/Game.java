@@ -48,7 +48,7 @@ public class Game extends Application {
     List<Ghost> enemies = new ArrayList<>();
 
     ArrayList<Circle> dots;
-    
+    int score = 0;
     
     Text collisionText = new Text();
     boolean collision = false;
@@ -183,12 +183,22 @@ public class Game extends Application {
     	}
     }
     
+    public void checkScore() {
+    	
+    	for (Circle c : dots) {
+    		
+    	}
+    }
+    
     private void dotCollide() {
     	collision = false;
     	for (Circle dot : dots) {
     		if(player.collidesWith(dot)) {
     			collision = true;
+    			dots.remove(dot);
     			removeDot(dot);
+    			score++;
+    			System.out.println(score);
     		}
     	}
     }
@@ -277,6 +287,15 @@ public class Game extends Application {
     	dots.add(new Circle(20,135,4,Color.YELLOW));
     	dots.add(new Circle(20,155,4,Color.YELLOW));
     	dots.add(new Circle(20,175,4,Color.YELLOW));
+    	dots.add(new Circle(20,375,4,Color.YELLOW));
+    	dots.add(new Circle(20,395,4,Color.YELLOW));
+    	dots.add(new Circle(20,415,4,Color.YELLOW));
+    	dots.add(new Circle(20,470,4,Color.YELLOW));
+    	dots.add(new Circle(20,490,4,Color.YELLOW));
+    	dots.add(new Circle(20,510,4,Color.YELLOW));
+    	dots.add(new Circle(20,530,4,Color.YELLOW));
+    	
+    	
     	playfieldLayer.getChildren().addAll(dots);
     	
     }
