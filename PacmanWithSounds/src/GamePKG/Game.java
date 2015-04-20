@@ -412,6 +412,16 @@ public class Game extends Application {
     	dots.add(new Circle(80,470,4,Color.YELLOW));
     	dots.add(new Circle(60,470,4,Color.YELLOW));
     	dots.add(new Circle(40,470,4,Color.YELLOW));
+    	dots.add(new Circle(150,450,4,Color.YELLOW));
+    	dots.add(new Circle(150,470,4,Color.YELLOW));
+    	dots.add(new Circle(170,470,4,Color.YELLOW));
+    	dots.add(new Circle(190,470,4,Color.YELLOW));
+    	dots.add(new Circle(300,450,4,Color.YELLOW));
+    	dots.add(new Circle(300,470,4,Color.YELLOW));
+    	dots.add(new Circle(280,470,4,Color.YELLOW));
+    	dots.add(new Circle(260,470,4,Color.YELLOW));
+    	dots.add(new Circle(250,490,4,Color.YELLOW));
+    	dots.add(new Circle(200,490,4,Color.YELLOW));
     	
     	dots.add(new Circle(40,525,4,Color.YELLOW));
     	dots.add(new Circle(60,525,4,Color.YELLOW));
@@ -471,7 +481,34 @@ public class Game extends Application {
     	dots.add(new Circle(360,470,4,Color.YELLOW));
     	dots.add(new Circle(380,470,4,Color.YELLOW));
     	dots.add(new Circle(400,470,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(40,375,4,Color.YELLOW));
+    	dots.add(new Circle(60,375,4,Color.YELLOW));
+    	dots.add(new Circle(80,375,4,Color.YELLOW));
 
+    	dots.add(new Circle(40,425,4,Color.YELLOW));
+    	dots.add(new Circle(60,425,4,Color.YELLOW));
+    	dots.add(new Circle(60,445,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(405,375,4,Color.YELLOW));
+    	dots.add(new Circle(385,375,4,Color.YELLOW));
+    	dots.add(new Circle(365,375,4,Color.YELLOW));
+    	dots.add(new Circle(310,375,4,Color.YELLOW));
+    	dots.add(new Circle(290,375,4,Color.YELLOW));
+    	dots.add(new Circle(270,375,4,Color.YELLOW));
+    	dots.add(new Circle(250,375,4,Color.YELLOW));
+    	dots.add(new Circle(250,395,4,Color.YELLOW));
+    	dots.add(new Circle(200,375,4,Color.YELLOW));
+    	dots.add(new Circle(200,395,4,Color.YELLOW));
+    	dots.add(new Circle(180,375,4,Color.YELLOW));
+    	dots.add(new Circle(160,375,4,Color.YELLOW));
+    	dots.add(new Circle(140,375,4,Color.YELLOW));
+    	dots.add(new Circle(120,375,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(405,185,4,Color.YELLOW));
+    	dots.add(new Circle(385,185,4,Color.YELLOW));
+    	dots.add(new Circle(365,185,4,Color.YELLOW));
+    	
     	
     	
     	
