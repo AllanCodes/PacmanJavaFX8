@@ -53,25 +53,28 @@ public class Game extends Application {
     ArrayList<Circle> dots;
     int score = 0;
     Label scoreLabel;
+    Label gameOver;
     boolean collision = false;
-
+    Group root = new Group();
     Scene scene;
     
     @Override
     public void start(Stage primaryStage) {
 
-        Group root = new Group();
 
         // create layers
         playfieldLayer = new Pane();
-
+        gameOver = new Label();
+        
         scoreLabel = new Label("Score: " + Integer.toString(score));
         scoreLabel.setLayoutX(350);
         scoreLabel.setLayoutY(25);
         scoreLabel.setScaleX(2);
         scoreLabel.setScaleY(2);
         scoreLabel.setTextFill(Color.YELLOW);
-        scoreLabel.setContentDisplay(ContentDisplay.TOP);
+        
+        
+        
         
         
         // note in the Settings class, SCENE_WIDTH and SCENE_HEIGHT are set to the size of the image above 448x576.
@@ -81,6 +84,7 @@ public class Game extends Application {
 		playfieldLayer.getChildren().add(imageView); // put the image inside the pane.
        root.getChildren().add(playfieldLayer);
        root.getChildren().add(scoreLabel);
+       root.getChildren().add(gameOver);
         scene = new Scene( root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.setWidth(464); // need 8 pixels for each side (16 total). Padding horizontally for window borders.
@@ -121,11 +125,28 @@ public class Game extends Application {
 
                 // update score, health, etc
                 drawScore();
+                checkGameOver();
                 
                 
             }
         };
         gameLoop.start();
+    }
+    
+    public void checkGameOver() {
+    	
+        gameOver = new Label();
+        gameOver.setLayoutX(190);
+        gameOver.setLayoutY(150);
+        gameOver.setScaleX(2);
+        gameOver.setScaleY(2);
+        gameOver.setTextFill(Color.RED);
+        
+    	if (dots.size() == 0) {
+    		gameOver.setText("GAME OVER");
+    		player.freeze();
+    		root.getChildren().add(gameOver);
+    	}
     }
     
     public void drawRectangles() {
@@ -183,13 +204,12 @@ public class Game extends Application {
 		playfieldLayer.getChildren().addAll(r);
     }
 
-    private void boxCollide() { // Added this for collision detection with rectangles
+    private void boxCollide() { 
     	collision = false;
-    	for ( Rectangle block : r) { //r is the name of my rectangle array
+    	for ( Rectangle block : r) { 
     		if(player.collidesWith(block)){
     			collision = true;
     			player.freeze();
-    			mySounds.stopClip(2);
     		}
     	}
     }
@@ -205,6 +225,8 @@ public class Game extends Application {
     			temp = dot;
     			removeDot(dot);
     			score += 100;
+    			mySounds.playClip(2);
+    			
     		}
     	}
     	if(collision == true) {
@@ -253,21 +275,6 @@ public class Game extends Application {
         enemies.add(ghost4);
     }
 
-//    private void createScoreLayer() {    	
-//        scoreBoard.setFont( Font.font( null, FontWeight.BOLD, 64));
-//        scoreBoard.setStroke(Color.BLACK);
-//        scoreBoard.setFill(Color.RED);
-//
-//        scoreLayer.getChildren().add( scoreBoard);
-//
-//        // TODO: quick-hack to ensure the text is centered; usually you don't have that; instead you have a health bar on top
-//        double x = (Settings.SCENE_WIDTH - scoreBoard.getBoundsInLocal().getWidth()) / 2;
-//        double y = (Settings.SCENE_HEIGHT - scoreBoard.getBoundsInLocal().getHeight()) / 2;
-//        scoreBoard.relocate(x, y);
-//        scoreBoard.setText("");
-//
-//        scoreBoard.setBoundsType(TextBoundsType.VISUAL);
-   //}
     
     public void drawScore() { 
     	scoreLabel.setText("Score: " + Integer.toString(score));
@@ -303,14 +310,14 @@ public class Game extends Application {
     	dots.add(new Circle(20,115,4,Color.YELLOW));
     	dots.add(new Circle(20,135,4,Color.YELLOW));
     	dots.add(new Circle(20,155,4,Color.YELLOW));
-    	dots.add(new Circle(20,175,4,Color.YELLOW));
+    	dots.add(new Circle(20,180,4,Color.YELLOW));
     	dots.add(new Circle(20,375,4,Color.YELLOW));
     	dots.add(new Circle(20,395,4,Color.YELLOW));
     	dots.add(new Circle(20,415,4,Color.YELLOW));
     	dots.add(new Circle(20,470,4,Color.YELLOW));
     	dots.add(new Circle(20,490,4,Color.YELLOW));
     	dots.add(new Circle(20,510,4,Color.YELLOW));
-    	dots.add(new Circle(20,530,4,Color.YELLOW));
+    	//dots.add(new Circle(20,530,4,Color.YELLOW));
     	
     	//top horizontal
     	dots.add(new Circle(40,75,4,Color.YELLOW));
@@ -345,11 +352,10 @@ public class Game extends Application {
     	dots.add(new Circle(425,175,4,Color.YELLOW));
     	dots.add(new Circle(425,375,4,Color.YELLOW));
     	dots.add(new Circle(425,395,4,Color.YELLOW));
-    	dots.add(new Circle(425,415,4,Color.YELLOW));
+    	//dots.add(new Circle(425,415,4,Color.YELLOW)); big dot
     	dots.add(new Circle(425,470,4,Color.YELLOW));
     	dots.add(new Circle(425,490,4,Color.YELLOW));
     	dots.add(new Circle(425,510,4,Color.YELLOW));
-    	dots.add(new Circle(425,530,4,Color.YELLOW));
     	
     	dots.add(new Circle(40,135,4,Color.YELLOW));
     	dots.add(new Circle(60,135,4,Color.YELLOW));
@@ -370,6 +376,106 @@ public class Game extends Application {
     	dots.add(new Circle(360,135,4,Color.YELLOW));
     	dots.add(new Circle(380,135,4,Color.YELLOW));
     	dots.add(new Circle(400,135,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(40,180,4,Color.YELLOW));
+    	dots.add(new Circle(60,180,4,Color.YELLOW));
+    	dots.add(new Circle(80,180,4,Color.YELLOW));
+    	dots.add(new Circle(100,180,4,Color.YELLOW));
+    	dots.add(new Circle(100,160,4,Color.YELLOW));
+    	dots.add(new Circle(155,185,4,Color.YELLOW));
+    	dots.add(new Circle(175,185,4,Color.YELLOW));
+    	dots.add(new Circle(195,185,4,Color.YELLOW));
+    	dots.add(new Circle(155,160,4,Color.YELLOW));
+    	dots.add(new Circle(295,160,4,Color.YELLOW));
+    	dots.add(new Circle(255,185,4,Color.YELLOW));
+    	dots.add(new Circle(275,185,4,Color.YELLOW));
+    	dots.add(new Circle(295,185,4,Color.YELLOW));
+    	dots.add(new Circle(340,160,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(100,95,4,Color.YELLOW));
+    	dots.add(new Circle(100,115,4,Color.YELLOW));
+    	dots.add(new Circle(100,200,4,Color.YELLOW));
+    	dots.add(new Circle(100,220,4,Color.YELLOW));
+    	dots.add(new Circle(100,240,4,Color.YELLOW));
+    	dots.add(new Circle(100,260,4,Color.YELLOW));
+    	dots.add(new Circle(100,280,4,Color.YELLOW));
+    	dots.add(new Circle(100,300,4,Color.YELLOW));
+    	dots.add(new Circle(100,320,4,Color.YELLOW));
+    	dots.add(new Circle(100,340,4,Color.YELLOW));
+    	dots.add(new Circle(100,360,4,Color.YELLOW));
+    	dots.add(new Circle(100,380,4,Color.YELLOW));
+    	dots.add(new Circle(100,400,4,Color.YELLOW));
+    	dots.add(new Circle(100,420,4,Color.YELLOW));
+    	dots.add(new Circle(100,440,4,Color.YELLOW));
+    	dots.add(new Circle(100,460,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(80,470,4,Color.YELLOW));
+    	dots.add(new Circle(60,470,4,Color.YELLOW));
+    	dots.add(new Circle(40,470,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(40,525,4,Color.YELLOW));
+    	dots.add(new Circle(60,525,4,Color.YELLOW));
+    	dots.add(new Circle(80,525,4,Color.YELLOW));
+    	dots.add(new Circle(100,525,4,Color.YELLOW));
+    	dots.add(new Circle(120,525,4,Color.YELLOW));
+    	dots.add(new Circle(140,525,4,Color.YELLOW));
+    	dots.add(new Circle(160,525,4,Color.YELLOW));
+    	dots.add(new Circle(180,525,4,Color.YELLOW));
+    	dots.add(new Circle(200,525,4,Color.YELLOW));
+    	dots.add(new Circle(220,525,4,Color.YELLOW));
+    	dots.add(new Circle(240,525,4,Color.YELLOW));
+    	dots.add(new Circle(260,525,4,Color.YELLOW));
+    	dots.add(new Circle(280,525,4,Color.YELLOW));
+    	dots.add(new Circle(300,525,4,Color.YELLOW));
+    	dots.add(new Circle(320,525,4,Color.YELLOW));
+    	dots.add(new Circle(340,525,4,Color.YELLOW));
+    	dots.add(new Circle(360,525,4,Color.YELLOW));
+    	dots.add(new Circle(380,525,4,Color.YELLOW));
+    	dots.add(new Circle(400,525,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(120,425,4,Color.YELLOW));
+    	dots.add(new Circle(140,425,4,Color.YELLOW));
+    	dots.add(new Circle(160,425,4,Color.YELLOW));
+    	dots.add(new Circle(180,425,4,Color.YELLOW));
+    	dots.add(new Circle(200,425,4,Color.YELLOW));
+    	dots.add(new Circle(240,425,4,Color.YELLOW));
+    	dots.add(new Circle(260,425,4,Color.YELLOW));
+    	dots.add(new Circle(280,425,4,Color.YELLOW));
+    	dots.add(new Circle(300,425,4,Color.YELLOW));
+    	dots.add(new Circle(320,425,4,Color.YELLOW));
+    	dots.add(new Circle(340,425,4,Color.YELLOW));
+
+    	dots.add(new Circle(390,425,4,Color.YELLOW));
+    	dots.add(new Circle(410,425,4,Color.YELLOW));
+    	dots.add(new Circle(425,415,6,Color.YELLOW));  //big dot
+    	dots.add(new Circle(390,445,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(340,95,4,Color.YELLOW));
+    	dots.add(new Circle(340,115,4,Color.YELLOW));
+    	dots.add(new Circle(340,185,4,Color.YELLOW));
+    	dots.add(new Circle(340,205,4,Color.YELLOW));
+    	dots.add(new Circle(340,225,4,Color.YELLOW));
+    	dots.add(new Circle(340,245,4,Color.YELLOW));
+    	dots.add(new Circle(340,265,4,Color.YELLOW));
+    	dots.add(new Circle(340,285,4,Color.YELLOW));
+    	dots.add(new Circle(340,305,4,Color.YELLOW));
+    	dots.add(new Circle(340,325,4,Color.YELLOW));
+    	dots.add(new Circle(340,345,4,Color.YELLOW));
+    	dots.add(new Circle(340,365,4,Color.YELLOW));
+    	dots.add(new Circle(340,385,4,Color.YELLOW));
+    	dots.add(new Circle(340,405,4,Color.YELLOW));
+    	dots.add(new Circle(340,425,4,Color.YELLOW));
+    	dots.add(new Circle(340,445,4,Color.YELLOW));
+    	dots.add(new Circle(340,465,4,Color.YELLOW));
+    	
+    	dots.add(new Circle(360,470,4,Color.YELLOW));
+    	dots.add(new Circle(380,470,4,Color.YELLOW));
+    	dots.add(new Circle(400,470,4,Color.YELLOW));
+
+    	
+    	
+    	
+    	
     	
     	
     	

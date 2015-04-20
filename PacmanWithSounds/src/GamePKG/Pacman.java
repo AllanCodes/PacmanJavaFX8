@@ -44,10 +44,10 @@ public class Pacman extends Sprite {
 
     @Override
     public void move() { // move the sprite
-    	if ((dx == 0) && (dy == 0))
-    		mySounds.stopClip(2);
-    	else
-    		mySounds.playClip(2);
+//    	if ((dx == 0) && (dy == 0))
+//    		mySounds.stopClip(2);
+//    	else
+//    		mySounds.playClip(2);
     	
         super.move();
         
