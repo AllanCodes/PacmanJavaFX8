@@ -13,24 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.PathTransition;
 import javafx.application.Application;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 public class Game extends Application {
@@ -46,9 +46,9 @@ public class Game extends Application {
     
     MySounds mySounds;
 
-    ArrayList<Rectangle> r;
-    Pacman player;
-    List<Ghost> enemies = new ArrayList<>();
+    protected ArrayList<Rectangle> r;
+    protected Pacman player;
+    protected ArrayList<Ghost> enemies = new ArrayList<>();
 
     ArrayList<Circle> dots;
     int score = 0;
@@ -59,8 +59,10 @@ public class Game extends Application {
     Group root = new Group();
     Scene scene;
     ArrayList<Circle> bigDots;
-    
+    Ghost ghost1,ghost2,ghost3,ghost4;
     ArrayList<Rectangle> lives;
+    
+    
     
     @Override
     public void start(Stage primaryStage) {
@@ -97,12 +99,13 @@ public class Game extends Application {
 
         mySounds = new MySounds();
         mySounds.playClip(1);
+       // mySounds.playClip(5);
         
         loadGame(); // create sprites
       //  createScoreLayer();
         drawRectangles();
         drawDots();
-        
+
         // create the main game loop.
         AnimationTimer gameLoop = new AnimationTimer() {
 
@@ -114,7 +117,8 @@ public class Game extends Application {
 
                 // move Pacman and ghost sprites.
                 player.move();
-                enemies.forEach(sprite -> sprite.move());
+                enemies.forEach(sprite -> sprite.spriteMovement());
+                
 
                 // check for collisions
                 boxCollide();
@@ -137,7 +141,7 @@ public class Game extends Application {
         };
         gameLoop.start();
     }
-    
+
     public void checkGameOver() {
     	
         gameOver = new Label();
@@ -236,6 +240,7 @@ public class Game extends Application {
     Circle temp; //stores the temporary dot that has to be removed
     Circle temp2;
     boolean hollow = false; //have we eaten a big dot
+    Image newImage = new Image("/Images/Fruit_Strawberry_16x16.png");
     
     private void dotCollide() {
     	
@@ -258,6 +263,7 @@ public class Game extends Application {
     			temp2 = bigDot;
     			removeDot(bigDot);
     			score += 100;
+    			player.imageView.setImage(new Image("/Images/Fruit_Strawberry_16x16.png"));
     			player.setSpeed(2);
     			hollow = true;
     			new java.util.Timer().schedule( 
@@ -286,11 +292,12 @@ public class Game extends Application {
     }
 			
     private void loadGame() {
-        playerImage = new Image("Images/PacmanSprite_24x24_1Frame.png");
+    	playerImage = new Image("Images/PacmanSprite_24x24_1Frame.png");
         enemyImage  = new Image("Images/Pinky_PinkGhost_16x16_1Frame.png" );
         enemyImage2 = new Image("Images/Clyde_OrangeGhost_16x16_1Frame.png");
         enemyImage3 = new Image("Images/Inky_CyanGhost_16x16_1Frame.png");
         enemyImage4 = new Image("Images/Blinky_RedGhost_16x16_1Frame.png");
+        
         // player input
         Input input = new Input(scene);
 
@@ -311,10 +318,10 @@ public class Game extends Application {
         Image image3 = enemyImage2;
         Image image4 = enemyImage3;
         Image image5 = enemyImage4;
-        Ghost ghost1 = new Ghost( playfieldLayer, image2, x, 280, 0, 0);
-        Ghost ghost2 = new Ghost(playfieldLayer, image3, x + 20, 280, 0, 0);
-        Ghost ghost3 = new Ghost(playfieldLayer,image4, x - 20, 280, 0,0);
-        Ghost ghost4 = new Ghost(playfieldLayer, image5, x, 260, 0,0);
+        ghost1 = new Ghost( playfieldLayer, image2, x, 280, 0.5, 0);
+        ghost2 = new Ghost(playfieldLayer, image3, x + 20, 280, 0, 0);
+        ghost3 = new Ghost(playfieldLayer,image4, x - 20, 280, 0,0);
+        ghost4 = new Ghost(playfieldLayer, image5, x, 260, 0,0);
         
         enemies.add(ghost1);
         enemies.add(ghost2);
@@ -343,7 +350,7 @@ public class Game extends Application {
             		 player.freeze();
             		 player.x = 0;
             		 player.y = 0;
-            		 player.removeFromLayer(); //problem here
+            		 player.removeFromLayer(); 
                      mySounds.playClip(4);
                      totalLife -= 1;
 	                     if (totalLife == -1) {
@@ -371,7 +378,10 @@ public class Game extends Application {
 	                    	 break;
 	                     }
 	                     lives.get(totalLife).setFill(Color.BLACK);
-                     
+	                     
+	                     for (Ghost ghost : enemies) {
+                    		 ghost.removeFromLayer();
+                    	 }
                      loadGame();
                      break;
             	}

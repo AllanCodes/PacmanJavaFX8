@@ -1,5 +1,7 @@
 package GamePKG;
 
+import java.util.ArrayList;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -39,15 +41,39 @@ public abstract class Sprite {
         addToLayer(); // add the sprite image to the Pane called "layer"
     }
 
+    public void setImageView(Image image) {
+    	this.imageView = new ImageView(image);
+    	this.imageView.relocate(x, y);
+    }
+    
     // move the sprite by dx,dy
     public void move() {
         x += dx;
         y += dy;
     }
     
+    public void spriteMovement() {
+    	x += dx;
+    	y += dy;
+    	
+    	
+    }
+    
+//    public boolean checkSpriteCollision(ArrayList<Rectangle> r, ArrayList<Ghost> enemies) {
+//    	
+//    	for (Rectangle rec : r) {
+//    		if (enemies.get(0).collidesWith(rec)) {
+//    			return true;
+//    		}
+//    	}
+//    	
+//		return false;
+//    	
+//    }
+    
 
 public boolean collidesWith(Rectangle block) {
-		return (block.intersects(x, y, frameWidth, frameHeight)); // Collision detection with rectangles and sprite frame
+		return (block.intersects(x, y, frameWidth, frameHeight)); 
 
 }
 
@@ -60,6 +86,8 @@ public void freeze() {
 		x -= dx;
 		y -= dy;
 	}
+
+
     
     // update the sprite's position to the new x,y
     public void updateUI() {

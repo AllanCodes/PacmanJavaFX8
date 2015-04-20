@@ -9,8 +9,5 @@ public class Ghost extends Sprite {
         super(layer, image, x, y, dx, dy);
     }
     
-    public void removeGhost() {
-    	
-    }
 
 }

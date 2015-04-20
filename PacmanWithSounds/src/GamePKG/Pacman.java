@@ -8,7 +8,8 @@ public class Pacman extends Sprite {
     private Input input;
     private double speed;
     MySounds mySounds;
-
+    boolean timer;
+    
     public Pacman(Pane layer, Image image, double x, double y, double dx, double dy, double speed, Input input, MySounds ms) {
 
         super(layer, image, x, y,  dx, dy);
@@ -28,6 +29,13 @@ public class Pacman extends Sprite {
         // move in vertical direction
         if( input.isMoveUp()) {
             dy = -speed;
+            imageView.setImage(new Image("Images/PacmanSprite_24x24_1FrameLeft.png"));
+        	imageTimer();
+        	if (timer) {
+                imageView.setImage(new Image("Images/PacmanSprite_24x24_1Frame.png"));
+                timer = false;
+        	}
+        
         } else if( input.isMoveDown()) {
             dy = speed;
         } else {
@@ -43,6 +51,20 @@ public class Pacman extends Sprite {
             dx = 0d;
         }
 
+    }
+    
+    public boolean imageTimer() {
+    	new java.util.Timer().schedule( 
+		        new java.util.TimerTask() {
+		            @Override
+		            public void run() {
+		                timer = true;
+		            }
+		        }, 
+		        50 
+		);
+    	
+    	return timer;
     }
 
     @Override

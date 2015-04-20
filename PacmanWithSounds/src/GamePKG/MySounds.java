@@ -87,6 +87,7 @@ public class MySounds {
 				PacDeath.setFramePosition(0);
 				
 			}
+
 	} // playClip
 	
 	public void stopClip( int index )
