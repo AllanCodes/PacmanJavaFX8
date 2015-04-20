@@ -18,6 +18,9 @@ public class Pacman extends Sprite {
         mySounds = ms;
     }
 
+    public void setSpeed(double speed) {
+    	this.speed = speed;
+    }
     // based on what arrow keys are pressed set the dx,dy variables to appropriate values
     // so the sprite will move in the proper direction.
     public void processInput() {
