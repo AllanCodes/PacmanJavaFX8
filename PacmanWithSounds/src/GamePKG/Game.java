@@ -274,6 +274,8 @@ public class Game extends Application {
     }
     
     
+    Ghost ghostTemp;
+    
     private void checkCollisions() {
 
         collision = false;
@@ -283,9 +285,12 @@ public class Game extends Application {
             if( player.collidesWith(enemy)) {
                 collision = true;
                 enemy.removeFromLayer();
-                enemies.remove(enemy);
+                ghostTemp = enemy;
                 mySounds.playClip(3);
             }
+        }
+        if (collision == true) {
+        	enemies.remove(ghostTemp);
         }
         
      }
