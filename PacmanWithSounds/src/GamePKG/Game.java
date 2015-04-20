@@ -115,9 +115,10 @@ public class Game extends Application {
                 enemies.forEach(sprite -> sprite.move());
 
                 // check for collisions
-                checkCollisions();
                 boxCollide();
                 dotCollide();
+                checkCollisions();
+
 
                 // update Pacman and ghost sprites in scene
                 player.updateUI();
@@ -223,11 +224,12 @@ public class Game extends Application {
     
     Circle temp; //stores the temporary dot that has to be removed
     Circle temp2;
+    boolean hollow = false; //have we eaten a big dot
     
     private void dotCollide() {
     	
     	collision = false;
-    	collision = false;
+    	collision2 = false;
     	
     	for (Circle dot : dots) {
     		if(player.collidesWith(dot)) {
@@ -245,12 +247,14 @@ public class Game extends Application {
     			temp2 = bigDot;
     			removeDot(bigDot);
     			score += 100;
-    			player.setSpeed(3);
+    			player.setSpeed(2);
+    			hollow = true;
     			new java.util.Timer().schedule( 
     			        new java.util.TimerTask() {
     			            @Override
     			            public void run() {
     			                player.setSpeed(1);
+    			                hollow = false;
     			            }
     			        }, 
     			        5000 
@@ -314,6 +318,7 @@ public class Game extends Application {
     
     
     Ghost ghostTemp;
+    double totalLife = 3; //total lives
     
     private void checkCollisions() {
 
@@ -322,10 +327,49 @@ public class Game extends Application {
         
         for( Ghost enemy: enemies) {
             if( player.collidesWith(enemy)) {
-                collision = true;
-                enemy.removeFromLayer();
-                ghostTemp = enemy;
-                mySounds.playClip(3);
+            	if (!hollow) {
+            		 collision = true;
+            		 player.freeze();
+            		 player.x = 0;
+            		 player.y = 0;
+            		 player.removeFromLayer(); //problem here
+                     mySounds.playClip(4);
+                     totalLife -= 1;
+	                     if (totalLife == 0) {
+	                    	 gameOver = new Label();
+	                    	 gameOver.setLayoutX(190);
+	                    	 gameOver.setLayoutY(150);
+	                    	 gameOver.setScaleX(2);
+	                    	 gameOver.setScaleY(2);
+	                    	 gameOver.setTextFill(Color.RED);
+	
+	
+	                    	 gameOver.setText("GAME OVER");
+	                    	 player.freeze();
+	                    	 player.removeFromLayer();
+	                    	 for (Ghost ghost : enemies) {
+	                    		 ghost.removeFromLayer();
+	                    	 }
+	                    	 for (Circle dot : dots) {
+	                    		removeDot(dot);
+	                    	 }
+	                    	 for(Circle bigDot : bigDots) {
+	                    		 removeDot(bigDot);
+	                    	 }
+	                    	 root.getChildren().add(gameOver);
+	                    	 break;
+	                     }
+                     
+                     loadGame();
+                     break;
+            	}
+            	else if (hollow) {
+            		collision = true;
+                    enemy.removeFromLayer();
+                    ghostTemp = enemy;
+                    mySounds.playClip(3);
+            	}
+               
             }
         }
         if (collision == true) {

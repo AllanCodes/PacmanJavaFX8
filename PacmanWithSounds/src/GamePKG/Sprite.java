@@ -65,6 +65,11 @@ public void freeze() {
     public void updateUI() {
         imageView.relocate(x, y);
     }
+    
+    public void updateUI(double x, double y) {
+        imageView.relocate(x, y);
+    }
+    
 
     // check to see of this sprite collides with "otherSprite"
     public boolean collidesWith( Sprite otherSprite) {
