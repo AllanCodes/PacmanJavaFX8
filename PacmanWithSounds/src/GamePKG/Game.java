@@ -18,6 +18,7 @@ import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -65,18 +66,21 @@ public class Game extends Application {
         playfieldLayer = new Pane();
 
         scoreLabel = new Label("Score: " + Integer.toString(score));
-        scoreLabel.setLayoutX(250);
-        scoreLabel.setLayoutY(250);
-        scoreLabel.setTextFill(Color.BLUE);
+        scoreLabel.setLayoutX(350);
+        scoreLabel.setLayoutY(25);
+        scoreLabel.setScaleX(2);
+        scoreLabel.setScaleY(2);
+        scoreLabel.setTextFill(Color.YELLOW);
+        scoreLabel.setContentDisplay(ContentDisplay.TOP);
         
         
         // note in the Settings class, SCENE_WIDTH and SCENE_HEIGHT are set to the size of the image above 448x576.
        BG_Maze = new Image ("images/Pac-ManMaze_448x576.png");  // read the image in
        ImageView imageView = new ImageView (BG_Maze); // create an ImageView object to hold this image.
-       playfieldLayer.getChildren().add(scoreLabel);
-		//playfieldLayer.getChildren().add(imageView); // put the image inside the pane.
+       //playfieldLayer.getChildren().add(scoreLabel);
+		playfieldLayer.getChildren().add(imageView); // put the image inside the pane.
        root.getChildren().add(playfieldLayer);
-
+       root.getChildren().add(scoreLabel);
         scene = new Scene( root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.setWidth(464); // need 8 pixels for each side (16 total). Padding horizontally for window borders.
@@ -200,7 +204,7 @@ public class Game extends Application {
     			collision = true;
     			temp = dot;
     			removeDot(dot);
-    			score++;
+    			score += 100;
     		}
     	}
     	if(collision == true) {
