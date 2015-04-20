@@ -263,7 +263,6 @@ public class Game extends Application {
     			temp2 = bigDot;
     			removeDot(bigDot);
     			score += 100;
-    			player.imageView.setImage(new Image("/Images/Fruit_Strawberry_16x16.png"));
     			player.setSpeed(2);
     			hollow = true;
     			new java.util.Timer().schedule( 
