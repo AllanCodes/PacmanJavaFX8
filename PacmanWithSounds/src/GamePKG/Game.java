@@ -60,6 +60,8 @@ public class Game extends Application {
     Scene scene;
     ArrayList<Circle> bigDots;
     
+    ArrayList<Rectangle> lives;
+    
     @Override
     public void start(Stage primaryStage) {
 
@@ -157,6 +159,14 @@ public class Game extends Application {
     }
     
     public void drawRectangles() {
+    	
+    	lives = new ArrayList<Rectangle>();
+    	lives.add(new Rectangle(36,548,24,24));
+    	lives.add(new Rectangle(69,547,23,25));
+    	for(Rectangle life : lives) {
+    		life.setFill(Color.TRANSPARENT);
+    	}
+    	
     	r = new ArrayList<Rectangle>();
 		r.add(new Rectangle(5, 43, 440,12));
 		r.add(new Rectangle(216, 56, 15,63));
@@ -209,6 +219,7 @@ public class Game extends Application {
 			block.setStroke(Color.TRANSPARENT);
 		}
 		playfieldLayer.getChildren().addAll(r);
+		playfieldLayer.getChildren().addAll(lives);
     }
 
     private void boxCollide() { 
@@ -318,7 +329,7 @@ public class Game extends Application {
     
     
     Ghost ghostTemp;
-    double totalLife = 3; //total lives
+    int totalLife = 2; //total lives
     
     private void checkCollisions() {
 
@@ -335,7 +346,7 @@ public class Game extends Application {
             		 player.removeFromLayer(); //problem here
                      mySounds.playClip(4);
                      totalLife -= 1;
-	                     if (totalLife == 0) {
+	                     if (totalLife == -1) {
 	                    	 gameOver = new Label();
 	                    	 gameOver.setLayoutX(190);
 	                    	 gameOver.setLayoutY(150);
@@ -359,6 +370,7 @@ public class Game extends Application {
 	                    	 root.getChildren().add(gameOver);
 	                    	 break;
 	                     }
+	                     lives.get(totalLife).setFill(Color.BLACK);
                      
                      loadGame();
                      break;
