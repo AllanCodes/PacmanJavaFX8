@@ -246,6 +246,15 @@ public class Game extends Application {
     			removeDot(bigDot);
     			score += 100;
     			player.setSpeed(3);
+    			new java.util.Timer().schedule( 
+    			        new java.util.TimerTask() {
+    			            @Override
+    			            public void run() {
+    			                player.setSpeed(1);
+    			            }
+    			        }, 
+    			        5000 
+    			);
     			mySounds.playClip(2);
     		}
     	}
