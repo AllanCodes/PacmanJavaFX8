@@ -50,6 +50,9 @@ public abstract class Sprite {
     public void move() {
         x += dx;
         y += dy;
+        
+        
+        
     }
     
     public void spriteMovement() {
@@ -58,18 +61,6 @@ public abstract class Sprite {
     	
     	
     }
-    
-//    public boolean checkSpriteCollision(ArrayList<Rectangle> r, ArrayList<Ghost> enemies) {
-//    	
-//    	for (Rectangle rec : r) {
-//    		if (enemies.get(0).collidesWith(rec)) {
-//    			return true;
-//    		}
-//    	}
-//    	
-//		return false;
-//    	
-//    }
     
 
 public boolean collidesWith(Rectangle block) {

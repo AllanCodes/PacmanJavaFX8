@@ -41,8 +41,8 @@ public class Input {
 
     public void removeListeners() {
 
-        scene.removeEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
-        scene.removeEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
+       scene.removeEventFilter(KeyEvent.KEY_PRESSED, keyPressedEventHandler);
+       scene.removeEventFilter(KeyEvent.KEY_RELEASED, keyReleasedEventHandler);
 
     }
 

@@ -61,6 +61,9 @@ public class Game extends Application {
     ArrayList<Circle> bigDots;
     Ghost ghost1,ghost2,ghost3,ghost4;
     ArrayList<Rectangle> lives;
+    Animation animation;
+    Path path;
+    PathTransition pathTransit;
     
     
     
@@ -99,7 +102,7 @@ public class Game extends Application {
 
         mySounds = new MySounds();
         mySounds.playClip(1);
-       // mySounds.playClip(5);
+       
         
         loadGame(); // create sprites
       //  createScoreLayer();
@@ -112,8 +115,11 @@ public class Game extends Application {
             @Override
             public void handle(long now) { // this is the main loop of the game. This method is repeatedly called.
 
+            	
                 // player input
+            	 changeSpot();
                 player.processInput();
+             
 
                 // move Pacman and ghost sprites.
                 player.move();
@@ -128,9 +134,8 @@ public class Game extends Application {
 
                 // update Pacman and ghost sprites in scene
                 player.updateUI();
-                enemies.forEach(sprite -> sprite.updateUI());
+                //enemies.forEach(sprite -> sprite.updateUI());
 
-                // check if sprite can be removed and remove it if needed
 
                 // update score, health, etc
                 drawScore();
@@ -138,10 +143,22 @@ public class Game extends Application {
                 
                 
             }
-        };
+        };	
         gameLoop.start();
+        
     }
 
+    public void changeSpot() {
+    	if (player.x >= 424 && (player.y >= 260 && player.y <= 297)) {
+    		player.x = 24;
+    		player.y = 270;
+    	}
+    	else if(player.x <= 24 && (player.y >= 260 && player.y <= 297)) {
+    		player.x = 424;
+    		player.y = 272;
+    	}
+    }
+    
     public void checkGameOver() {
     	
         gameOver = new Label();
@@ -152,7 +169,7 @@ public class Game extends Application {
         gameOver.setTextFill(Color.RED);
         
     	if (dots.size() == 0 && bigDots.size() == 0) {
-    		gameOver.setText("GAME OVER");
+    		gameOver.setText("WINNER");
     		player.freeze();
     		player.removeFromLayer();
     		for (Ghost ghost : enemies) {
@@ -172,7 +189,7 @@ public class Game extends Application {
     	}
     	
     	r = new ArrayList<Rectangle>();
-		r.add(new Rectangle(5, 43, 440,12));
+    	r.add(new Rectangle(5, 43, 440,12));
 		r.add(new Rectangle(216, 56, 15,63));
 		r.add(new Rectangle(1, 46, 7,162));
 		r.add(new Rectangle(439, 46, 8,157));
@@ -240,7 +257,7 @@ public class Game extends Application {
     Circle temp; //stores the temporary dot that has to be removed
     Circle temp2;
     boolean hollow = false; //have we eaten a big dot
-    Image newImage = new Image("/Images/Fruit_Strawberry_16x16.png");
+  
     
     private void dotCollide() {
     	
@@ -262,7 +279,7 @@ public class Game extends Application {
     			collision2 = true;
     			temp2 = bigDot;
     			removeDot(bigDot);
-    			score += 100;
+    			score += 500;
     			player.setSpeed(2);
     			hollow = true;
     			new java.util.Timer().schedule( 
@@ -290,8 +307,10 @@ public class Game extends Application {
     	playfieldLayer.getChildren().remove(dot);
     }
 			
+   
+    
     private void loadGame() {
-    	playerImage = new Image("Images/PacmanSprite_24x24_1Frame.png");
+    	playerImage = new Image("Images/pacRIGHT1.png");
         enemyImage  = new Image("Images/Pinky_PinkGhost_16x16_1Frame.png" );
         enemyImage2 = new Image("Images/Clyde_OrangeGhost_16x16_1Frame.png");
         enemyImage3 = new Image("Images/Inky_CyanGhost_16x16_1Frame.png");
@@ -311,13 +330,16 @@ public class Game extends Application {
 
         // create Pacman sprite
         player = new Pacman(playfieldLayer, image, x, y, 0, 0, 1, input,mySounds);
+        Animation animatePac = new SpriteAnimation(player.imageView, Duration.millis(10000), player);
+        animatePac.setCycleCount(Animation.INDEFINITE);
+        animatePac.play();
         
         // create ghost sprite
         Image image2 = enemyImage;
         Image image3 = enemyImage2;
         Image image4 = enemyImage3;
         Image image5 = enemyImage4;
-        ghost1 = new Ghost( playfieldLayer, image2, x, 280, 0.5, 0);
+        ghost1 = new Ghost( playfieldLayer, image2, x, 280, 0, 0);
         ghost2 = new Ghost(playfieldLayer, image3, x + 20, 280, 0, 0);
         ghost3 = new Ghost(playfieldLayer,image4, x - 20, 280, 0,0);
         ghost4 = new Ghost(playfieldLayer, image5, x, 260, 0,0);
@@ -326,6 +348,7 @@ public class Game extends Application {
         enemies.add(ghost2);
         enemies.add(ghost3);
         enemies.add(ghost4);
+       
     }
 
     
@@ -353,6 +376,7 @@ public class Game extends Application {
                      mySounds.playClip(4);
                      totalLife -= 1;
 	                     if (totalLife == -1) {
+	                    	 
 	                    	 gameOver = new Label();
 	                    	 gameOver.setLayoutX(190);
 	                    	 gameOver.setLayoutY(150);
@@ -364,6 +388,7 @@ public class Game extends Application {
 	                    	 gameOver.setText("GAME OVER");
 	                    	 player.freeze();
 	                    	 player.removeFromLayer();
+	                    	 
 	                    	 for (Ghost ghost : enemies) {
 	                    		 ghost.removeFromLayer();
 	                    	 }
