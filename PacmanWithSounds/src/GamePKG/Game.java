@@ -61,7 +61,7 @@ public class Game extends Application {
     ArrayList<Circle> bigDots;
     Ghost ghost1,ghost2,ghost3,ghost4;
     ArrayList<Rectangle> lives;
-    Animation animation;
+    Animation animation,animateGhost;
     Path path;
     PathTransition pathTransit;
     
@@ -314,7 +314,7 @@ public class Game extends Application {
         enemyImage  = new Image("Images/Pinky_PinkGhost_16x16_1Frame.png" );
         enemyImage2 = new Image("Images/Clyde_OrangeGhost_16x16_1Frame.png");
         enemyImage3 = new Image("Images/Inky_CyanGhost_16x16_1Frame.png");
-        enemyImage4 = new Image("Images/Blinky_RedGhost_16x16_1Frame.png");
+        enemyImage4 = new Image("Images/RED1.png");
         
         // player input
         Input input = new Input(scene);
@@ -330,9 +330,7 @@ public class Game extends Application {
 
         // create Pacman sprite
         player = new Pacman(playfieldLayer, image, x, y, 0, 0, 1, input,mySounds);
-        Animation animatePac = new SpriteAnimation(player.imageView, Duration.millis(10000), player);
-        animatePac.setCycleCount(Animation.INDEFINITE);
-        animatePac.play();
+        
         
         // create ghost sprite
         Image image2 = enemyImage;
@@ -343,7 +341,9 @@ public class Game extends Application {
         ghost2 = new Ghost(playfieldLayer, image3, x + 20, 280, 0, 0);
         ghost3 = new Ghost(playfieldLayer,image4, x - 20, 280, 0,0);
         ghost4 = new Ghost(playfieldLayer, image5, x, 260, 0,0);
-        
+        Animation animatePac = new SpriteAnimation(player.imageView, Duration.millis(10000), player, ghost4.imageView, ghost4, ghost2.imageView, ghost2, ghost1.imageView, ghost1, ghost3.imageView, ghost3);
+        animatePac.setCycleCount(Animation.INDEFINITE);
+        animatePac.play();
         enemies.add(ghost1);
         enemies.add(ghost2);
         enemies.add(ghost3);
