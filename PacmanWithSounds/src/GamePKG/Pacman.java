@@ -39,13 +39,13 @@ public class Pacman extends Sprite {
         	movement = 1;
         	dx = 0;
             dy = -speed;
-         imageView.setImage(new Image("Images/PacmanSprite_24x24_1FrameTOP.png"));
+       //  imageView.setImage(new Image("Images/PacmanSprite_24x24_1FrameTOP.png"));
             
         } else if( input.isMoveDown()) {
         	movement = 2;
             dy = speed;
             dx = 0;
-            imageView.setImage(new Image("Images/PacmanSprite_24x24_1FrameBOT.png"));
+        //    imageView.setImage(new Image("Images/PacmanSprite_24x24_1FrameBOT.png"));
         } 
 //        else {
 //            dy = 0d;
@@ -57,13 +57,13 @@ public class Pacman extends Sprite {
         	movement = 3;
             dx = -speed;
             dy = 0;
-            imageView.setImage(new Image("Images/PacmanSprite_24x24_1FrameLeft.png"));
+          //  imageView.setImage(new Image("Images/PacmanSprite_24x24_1FrameLeft.png"));
           
         } else if( input.isMoveRight()) {
         	movement = 4;
             dx = speed;
             dy = 0;
-            imageView.setImage(new Image("Images/PacmanSprite_24x24_1Frame.png"));
+            //imageView.setImage(new Image("Images/PacmanSprite_24x24_1Frame.png"));
            
             
         } 

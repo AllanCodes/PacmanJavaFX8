@@ -12,6 +12,7 @@ public class SpriteAnimation extends Transition {
 	  private int count = 0, count1 = 0, count2 = 0, count3 = 0;
 	  Pacman pac;
 	  Ghost ghost, ghost2, ghost3, ghost4;
+	  boolean dead;
 	  
 	  public SpriteAnimation(ImageView imageView, Duration duration, Pacman pac, ImageView imageView2, Ghost ghost , 
 			  																	 ImageView imageView3, Ghost ghost2, 
@@ -19,6 +20,7 @@ public class SpriteAnimation extends Transition {
 			  																	 ImageView imageView5, Ghost ghost4
 			  																								)
 	  {
+		  
 		  this.imageView = imageView;
 		  this.imageView2 = imageView2;
 		  this.imageView3 = imageView3;
@@ -30,6 +32,8 @@ public class SpriteAnimation extends Transition {
 		  this.ghost3 = this.ghost3;
 		  this.ghost4 = this.ghost4;
 
+		  this.dead = dead;
+		  
 		  this.pac = pac;
 		  setCycleDuration(duration);
 		  setInterpolator(Interpolator.LINEAR);
@@ -38,6 +42,7 @@ public class SpriteAnimation extends Transition {
 	@Override
 	protected void interpolate(double arg0) {
 		// TODO Auto-generated method stub
+	
 		if (pac.movement == 4) {
 			if (count <= 20) {
 				imageView.setImage(new Image("Images/pacRIGHT1.png"));
@@ -128,6 +133,8 @@ public class SpriteAnimation extends Transition {
 			}
 			count3++;
 		}
+		
+	
 		
 		
 	

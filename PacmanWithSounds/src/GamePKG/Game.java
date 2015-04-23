@@ -26,6 +26,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
@@ -64,7 +66,7 @@ public class Game extends Application {
     Animation animation,animateGhost;
     Path path;
     PathTransition pathTransit;
-    
+    ArrayList<Boolean> ghostMove;
     
     
     @Override
@@ -103,11 +105,11 @@ public class Game extends Application {
         mySounds = new MySounds();
         mySounds.playClip(1);
        
-        
-        loadGame(); // create sprites
-      //  createScoreLayer();
         drawRectangles();
         drawDots();
+        loadGame(); // create sprites
+      //  createScoreLayer();
+      
 
         // create the main game loop.
         AnimationTimer gameLoop = new AnimationTimer() {
@@ -123,7 +125,7 @@ public class Game extends Application {
 
                 // move Pacman and ghost sprites.
                 player.move();
-                enemies.forEach(sprite -> sprite.spriteMovement());
+               // enemies.forEach(sprite -> sprite.spriteMovement());
                 
 
                 // check for collisions
@@ -140,6 +142,7 @@ public class Game extends Application {
                 // update score, health, etc
                 drawScore();
                 checkGameOver();
+                moveGhosts(ghost1);
                 
                 
             }
@@ -159,7 +162,7 @@ public class Game extends Application {
     	}
     }
     
-    public void checkGameOver() {
+    public void checkGameOver() { 
     	
         gameOver = new Label();
         gameOver.setLayoutX(190);
@@ -189,52 +192,109 @@ public class Game extends Application {
     	}
     	
     	r = new ArrayList<Rectangle>();
-    	r.add(new Rectangle(5, 43, 440,12));
-		r.add(new Rectangle(216, 56, 15,63));
-		r.add(new Rectangle(1, 46, 7,162));
-		r.add(new Rectangle(439, 46, 8,157));
-		r.add(new Rectangle(43,88,43,29));
-		r.add(new Rectangle(362, 88, 43,29));
-		r.add(new Rectangle(123, 88, 58,30));
-		r.add(new Rectangle(266, 88, 58,30));
-		r.add(new Rectangle(42, 151, 42,17));
-		r.add(new Rectangle(362, 151, 42,17));
-		r.add(new Rectangle(171, 152, 106,14));
-		r.add(new Rectangle(171, 343, 106,14));
-		r.add(new Rectangle(171, 440, 106,14));
-		r.add(new Rectangle(122, 151, 15,108));
-		r.add(new Rectangle(312, 151, 15,108));
-		r.add(new Rectangle(139, 200, 41,16));
-		r.add(new Rectangle(266, 200, 41,16));
-		r.add(new Rectangle(1, 198, 82,61));
-		r.add(new Rectangle(1, 299, 82,61));
-		r.add(new Rectangle(364, 201, 82,59));
-		r.add(new Rectangle(364, 299, 82,59));
-		r.add(new Rectangle(120, 298, 15,59));
-		r.add(new Rectangle(312, 298, 15,59));
-		r.add(new Rectangle(124, 392, 55,15));
-		r.add(new Rectangle(266, 392, 55,15));
-		r.add(new Rectangle(440, 357, 7,188));
-		r.add(new Rectangle(1, 357, 7,188));
-		r.add(new Rectangle(217, 169, 15,43));
-		r.add(new Rectangle(217, 362, 15,43));
-		r.add(new Rectangle(217, 454, 15,43));
-		r.add(new Rectangle(9, 440, 30,16));
-		r.add(new Rectangle(410, 440, 30,16));
-		r.add(new Rectangle(43, 488, 137,16));
-		r.add(new Rectangle(267, 488, 137,16));
-		r.add(new Rectangle(122, 442, 14,45));
-		r.add(new Rectangle(312, 442, 14,45));
-		r.add(new Rectangle(1, 535, 442,8));
-		r.add(new Rectangle(44, 393, 39,16));
-		r.add(new Rectangle(362, 393, 39,16));
-		r.add(new Rectangle(361, 393, 15,61));
-		r.add(new Rectangle(73, 393, 15,61));
-		r.add(new Rectangle(170, 247, 37,11));
-		r.add(new Rectangle(241, 247, 37,11));
-		r.add(new Rectangle(170, 301, 108,9));
-		r.add(new Rectangle(168, 248, 9,61));
-		r.add(new Rectangle(271, 248, 9,61));
+//    	r.add(new Rectangle(5, 43, 440,12));
+//		r.add(new Rectangle(216, 56, 15,63));
+//		r.add(new Rectangle(1, 46, 7,162));
+//		r.add(new Rectangle(439, 46, 8,157));
+//		r.add(new Rectangle(43,88,43,29));
+//		r.add(new Rectangle(362, 88, 43,29));
+//		r.add(new Rectangle(123, 88, 58,30));
+//		r.add(new Rectangle(266, 88, 58,30));
+//		r.add(new Rectangle(42, 151, 42,17));
+//		r.add(new Rectangle(362, 151, 42,17));
+//		r.add(new Rectangle(171, 152, 106,14));
+//		r.add(new Rectangle(171, 343, 106,14));
+//		r.add(new Rectangle(171, 440, 106,14));
+//		r.add(new Rectangle(122, 151, 15,108));
+//		r.add(new Rectangle(312, 151, 15,108));
+//		r.add(new Rectangle(139, 200, 41,16));
+//		r.add(new Rectangle(266, 200, 41,16));
+//		r.add(new Rectangle(1, 198, 82,61));
+//		r.add(new Rectangle(1, 299, 82,61));
+//		r.add(new Rectangle(364, 201, 82,59));
+//		r.add(new Rectangle(364, 299, 82,59));
+//		r.add(new Rectangle(120, 298, 15,59));
+//		r.add(new Rectangle(312, 298, 15,59));
+//		r.add(new Rectangle(124, 392, 55,15));
+//		r.add(new Rectangle(266, 392, 55,15));
+//		r.add(new Rectangle(440, 357, 7,188));
+//		r.add(new Rectangle(1, 357, 7,188));
+//		r.add(new Rectangle(217, 169, 15,43));
+//		r.add(new Rectangle(217, 362, 15,43));
+//		r.add(new Rectangle(217, 454, 15,43));
+//		r.add(new Rectangle(9, 440, 30,16));
+//		r.add(new Rectangle(410, 440, 30,16));
+//		r.add(new Rectangle(43, 488, 137,16));
+//		r.add(new Rectangle(267, 488, 137,16));
+//		r.add(new Rectangle(122, 442, 14,45));
+//		r.add(new Rectangle(312, 442, 14,45));
+//		r.add(new Rectangle(1, 535, 442,8));
+//		r.add(new Rectangle(44, 393, 39,16));
+//		r.add(new Rectangle(362, 393, 39,16));
+//		r.add(new Rectangle(361, 393, 15,61));
+//		r.add(new Rectangle(73, 393, 15,61));
+//		r.add(new Rectangle(170, 247, 37,11));
+//		r.add(new Rectangle(241, 247, 37,11));
+//		r.add(new Rectangle(170, 301, 108,9));
+//		r.add(new Rectangle(168, 248, 9,61));
+//		r.add(new Rectangle(271, 248, 9,61));
+    	//top inner walls
+    	r.add(new Rectangle(40, 88, 48, 32)); //1
+    	r.add(new Rectangle(120, 88, 64, 32)); //2
+    	r.add(new Rectangle(264, 88, 64, 32)); //3
+    	r.add(new Rectangle(360, 88, 48, 32)); //4
+    	r.add(new Rectangle(40, 152, 48, 16)); //5
+    	r.add(new Rectangle(360, 152, 48, 16)); //6
+    	r.add(new Rectangle(120, 152, 16, 112)); //7
+    	r.add(new Rectangle(168, 152, 112, 16)); //8
+    	r.add(new Rectangle(312, 152, 16, 112)); //9
+    	r.add(new Rectangle(264, 200, 50, 16)); //10
+    	r.add(new Rectangle(134, 200, 50, 16)); //11
+    	r.add(new Rectangle(216, 166, 16, 50)); //12
+
+    	//Ghost Box
+    	r.add(new Rectangle(168, 248, 40, 8)); //13
+    	r.add(new Rectangle(240, 248, 40, 8)); //14
+    	r.add(new Rectangle(168, 256, 8, 48)); //15
+    	r.add(new Rectangle(272, 256, 8, 48)); //16
+    	r.add(new Rectangle(168, 304, 112, 8)); //17
+
+    	//lower inner walls
+    	r.add(new Rectangle(120, 296, 16, 64)); //18
+    	r.add(new Rectangle(312, 296, 16, 64)); //19
+    	r.add(new Rectangle(168, 344, 112, 16)); //20
+    	r.add(new Rectangle(216, 360, 16, 48)); //21
+    	r.add(new Rectangle(120, 392, 64, 16)); //22
+    	r.add(new Rectangle(264, 392, 64, 16)); //23
+    	r.add(new Rectangle(40, 392, 48, 16)); //24
+    	r.add(new Rectangle(72, 408, 16, 48)); //25
+    	r.add(new Rectangle(360, 392, 48, 16)); //26
+    	r.add(new Rectangle(360, 408, 16, 48)); //27
+    	r.add(new Rectangle(168, 440, 112, 16)); //28
+    	r.add(new Rectangle(216, 456, 16, 48)); //29
+    	r.add(new Rectangle(120, 440, 16, 48)); //30
+    	r.add(new Rectangle(40, 488, 144, 16)); //31
+    	r.add(new Rectangle(312, 440, 16, 48)); //32
+    	r.add(new Rectangle(264, 488, 144, 16)); //33
+
+    	// upper outer walls
+    	r.add(new Rectangle(0, 48, 448, 8)); //34
+    	r.add(new Rectangle(216, 56, 16, 64)); //35
+    	r.add(new Rectangle(0, 56, 8, 144)); //36
+    	r.add(new Rectangle(440, 56, 8, 144)); //37
+
+    	//teleporter blocks
+    	r.add(new Rectangle(0, 200, 88, 64)); //38
+    	r.add(new Rectangle(360, 200, 88, 64)); //39
+    	r.add(new Rectangle(0, 296, 88, 64)); //40
+    	r.add(new Rectangle(360, 296, 88, 64)); //41
+
+    	//lower outer walls
+    	r.add(new Rectangle(0, 360, 8, 176)); //42
+    	r.add(new Rectangle(8, 440, 32, 16)); //43
+    	r.add(new Rectangle(408, 440, 32, 16)); //44
+    	r.add(new Rectangle(440, 360, 8, 176)); //45
+    	r.add(new Rectangle(0, 536, 448, 8)); //46
 		for(Rectangle block : r){
 			block.setFill(Color.TRANSPARENT);;
 			block.setStroke(Color.TRANSPARENT);
@@ -311,9 +371,9 @@ public class Game extends Application {
     
     private void loadGame() {
     	playerImage = new Image("Images/pacRIGHT1.png");
-        enemyImage  = new Image("Images/Pinky_PinkGhost_16x16_1Frame.png" );
-        enemyImage2 = new Image("Images/Clyde_OrangeGhost_16x16_1Frame.png");
-        enemyImage3 = new Image("Images/Inky_CyanGhost_16x16_1Frame.png");
+        enemyImage  = new Image("Images/PINK1.png" );
+        enemyImage2 = new Image("Images/Orange1.png");
+        enemyImage3 = new Image("Images/CYAN1.png");
         enemyImage4 = new Image("Images/RED1.png");
         
         // player input
@@ -341,16 +401,85 @@ public class Game extends Application {
         ghost2 = new Ghost(playfieldLayer, image3, x + 20, 280, 0, 0);
         ghost3 = new Ghost(playfieldLayer,image4, x - 20, 280, 0,0);
         ghost4 = new Ghost(playfieldLayer, image5, x, 260, 0,0);
-        Animation animatePac = new SpriteAnimation(player.imageView, Duration.millis(10000), player, ghost4.imageView, ghost4, ghost2.imageView, ghost2, ghost1.imageView, ghost1, ghost3.imageView, ghost3);
+        Animation animatePac = new SpriteAnimation(player.imageView, Duration.millis(10000),player, 
+        																					ghost4.imageView, ghost4, 
+        																					ghost2.imageView, ghost2, 
+        																					ghost1.imageView, ghost1, 
+        																					ghost3.imageView, ghost3);
         animatePac.setCycleCount(Animation.INDEFINITE);
         animatePac.play();
+     
+       								
+        
+        
         enemies.add(ghost1);
         enemies.add(ghost2);
         enemies.add(ghost3);
         enemies.add(ghost4);
-       
+
+        
+       // moveGhosts(ghost1);
     }
 
+    
+    public void moveGhosts(Ghost ghost) {
+    	
+    	if (checkForward(ghost)) {
+    		
+    		ghost.updateUI(ghost.x,ghost.y-0.5);
+    	}
+    	
+    	else if (checkRight(ghost)) {
+    		ghost.updateUI(ghost.x+1, ghost.y);
+    	}
+    	else if (checkLeft(ghost) && checkBehind(ghost)) {
+    		ghost.updateUI(ghost.x+1,ghost.y);
+    	}
+    	else if (checkLeft(ghost)) {
+    		ghost.updateUI(ghost.x-1,ghost.y);
+    	}
+    	
+    	else if(checkBehind(ghost)) {
+    		ghost.updateUI(ghost.x,ghost.y+1);
+    	}
+    }
+    
+    public boolean checkForward(Ghost ghost) {
+    	for (Rectangle rec : r) {
+    		if (ghost.collidesWithCoord(rec, ghost.x, ghost.y - 1)) {
+    			return false;
+    		}
+    	}
+		return true;
+    	
+    }
+    
+    public boolean checkRight(Ghost ghost) {
+    	for (Rectangle rec : r) {
+        	if (ghost.collidesWithCoord(rec, ghost.x+1,ghost.y)) {
+        			return false;
+        		}
+        	}
+    		return true;
+    }
+    
+    public boolean checkLeft(Ghost ghost) {
+    	for (Rectangle rec : r) {
+        	if (ghost.collidesWithCoord(rec, ghost.x - 1, ghost.y)) {
+        			return false;
+        		}
+        	}
+    		return true;
+    }
+    
+    public boolean checkBehind(Ghost ghost) {
+    	for (Rectangle rec : r) {
+        	if (ghost.collidesWithCoord(rec, ghost.x, ghost.y+1)) {
+        			return false;
+        		}
+        	}
+    		return true;
+    }
     
     public void drawScore() { 
     	scoreLabel.setText("Score: " + Integer.toString(score));
@@ -363,11 +492,12 @@ public class Game extends Application {
     private void checkCollisions() {
 
         collision = false;
-       
+   
         
         for( Ghost enemy: enemies) {
             if( player.collidesWith(enemy)) {
             	if (!hollow) {
+            		
             		 collision = true;
             		 player.freeze();
             		 player.x = 0;
@@ -411,15 +541,16 @@ public class Game extends Application {
             	}
             	else if (hollow) {
             		collision = true;
-                    enemy.removeFromLayer();
-                    ghostTemp = enemy;
+            		enemy.updateUI(200,280);
+                    //enemy.removeFromLayer();
+                    //ghostTemp = enemy;
                     mySounds.playClip(3);
             	}
                
             }
         }
         if (collision == true) {
-        	enemies.remove(ghostTemp);
+        	//enemies.remove(ghostTemp);
         }
         
      }

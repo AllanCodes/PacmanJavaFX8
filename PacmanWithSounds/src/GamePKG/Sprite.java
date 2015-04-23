@@ -19,8 +19,8 @@ public abstract class Sprite {
     protected double dy; // how much to move sprite in the y axis
     protected double w;  // width of the sprite image
     protected double h;  // height of the sprite image
-    protected double frameWidth = 16;
-    protected double frameHeight = 16;
+    protected double frameWidth = 20;
+    protected double frameHeight = 20;
 
     public Sprite(Pane layer, Image image, double x, double y, double dx, double dy) {
 
@@ -62,6 +62,10 @@ public abstract class Sprite {
     	
     }
     
+    public boolean collidesWithCoord(Rectangle block, double x, double y) {
+		return (block.intersects(x, y, w, h)); 
+
+}
 
 public boolean collidesWith(Rectangle block) {
 		return (block.intersects(x, y, frameWidth, frameHeight)); 
@@ -86,6 +90,8 @@ public void freeze() {
     }
     
     public void updateUI(double x, double y) {
+    	this.x = x;
+    	this.y = y;
         imageView.relocate(x, y);
     }
     
