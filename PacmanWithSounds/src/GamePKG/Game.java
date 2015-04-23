@@ -142,7 +142,7 @@ public class Game extends Application {
                 // update score, health, etc
                 drawScore();
                 checkGameOver();
-                moveGhosts(ghost1);
+                moveGhosts(ghost1, ghost2,ghost3, ghost4);
                 
                 
             }
@@ -421,35 +421,91 @@ public class Game extends Application {
        // moveGhosts(ghost1);
     }
 
-    
-    public void moveGhosts(Ghost ghost) {
+    boolean forward = false;
+	boolean right = false;
+	boolean left = false;
+	boolean behind = false;
+	Random rand = new Random();
+	int randGhost = rand.nextInt(4);
+	int solid;
+	ArrayList<Boolean> checkGhost = new ArrayList<Boolean>();
+	
+    public void moveGhosts(Ghost ghost, Ghost ghost2, Ghost ghost3, Ghost ghost4) {
     	
-    	if (checkForward(ghost)) {
+    	checkForward(ghost); checkForward(ghost2); checkForward(ghost3); checkForward(ghost4);
+    	checkRight(ghost);//1
+    	checkLeft(ghost); //2
+    	checkBehind(ghost); //3
+    	
+    	while (true) {
+    		randGhost = rand.nextInt(4);
+    		solid = randGhost;
+    		if (checkGhost.get(solid)) {
+    			break;
+    		}
+    		else continue;
     		
-    		ghost.updateUI(ghost.x,ghost.y-0.5);
     	}
     	
-    	else if (checkRight(ghost)) {
-    		ghost.updateUI(ghost.x+1, ghost.y);
-    	}
-    	else if (checkLeft(ghost) && checkBehind(ghost)) {
-    		ghost.updateUI(ghost.x+1,ghost.y);
-    	}
-    	else if (checkLeft(ghost)) {
-    		ghost.updateUI(ghost.x-1,ghost.y);
-    	}
+    			if (solid == 0) {
+    				moveForward(ghost);
+    				
+    			}
+    			else if (solid == 1) {
+    				moveRight(ghost);
+    				
+    			}
+    			else if (solid == 2) {
+    				moveLeft(ghost);
+    				
+    			}
+    			else if ((solid == 3) && (ghost.y > 303 || ghost.y < 222) && (ghost.x < 177 || ghost.x > 277)) {
+    				moveBehind(ghost);
+    				
+    			}
     	
-    	else if(checkBehind(ghost)) {
-    		ghost.updateUI(ghost.x,ghost.y+1);
-    	}
+    	
+    	
+    	checkGhost.clear();
+    	
+//    	if (checkForward(ghost)) {
+//    		
+//    		ghost.updateUI(ghost.x,ghost.y-0.5);
+//    	}
+//    	
+//    	else if (checkRight(ghost)) {
+//    		ghost.updateUI(ghost.x+1, ghost.y);
+//    	}
+//    	else if (checkLeft(ghost)) {
+//    		ghost.updateUI(ghost.x-1,ghost.y);
+//    	}
+//    	
+//    	else if(checkBehind(ghost)) {
+//    		ghost.updateUI(ghost.x,ghost.y+1);
+//    	}
+    }
+    
+    public void moveForward(Ghost ghost) {
+    	ghost.updateUI(ghost.x,ghost.y-1);
+    }
+    public void moveRight(Ghost ghost) {
+    	ghost.updateUI(ghost.x+1,ghost.y);
+    }
+    public void moveLeft(Ghost ghost) {
+    	ghost.updateUI(ghost.x-1,ghost.y);
+    }
+    public void moveBehind(Ghost ghost) {
+    	ghost.updateUI(ghost.x,ghost.y+1);
     }
     
     public boolean checkForward(Ghost ghost) {
     	for (Rectangle rec : r) {
     		if (ghost.collidesWithCoord(rec, ghost.x, ghost.y - 1)) {
+    			checkGhost.add(false);
     			return false;
     		}
     	}
+    	checkGhost.add(true);
 		return true;
     	
     }
@@ -457,27 +513,33 @@ public class Game extends Application {
     public boolean checkRight(Ghost ghost) {
     	for (Rectangle rec : r) {
         	if (ghost.collidesWithCoord(rec, ghost.x+1,ghost.y)) {
+        		checkGhost.add(false);
         			return false;
         		}
         	}
+    	checkGhost.add(true);
     		return true;
     }
     
     public boolean checkLeft(Ghost ghost) {
     	for (Rectangle rec : r) {
         	if (ghost.collidesWithCoord(rec, ghost.x - 1, ghost.y)) {
+        		checkGhost.add(false);
         			return false;
         		}
         	}
+    	checkGhost.add(true);
     		return true;
     }
     
     public boolean checkBehind(Ghost ghost) {
     	for (Rectangle rec : r) {
         	if (ghost.collidesWithCoord(rec, ghost.x, ghost.y+1)) {
+        		checkGhost.add(false);
         			return false;
         		}
         	}
+    	checkGhost.add(true);
     		return true;
     }
     
