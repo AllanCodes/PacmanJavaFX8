@@ -520,6 +520,86 @@ public class Game extends Application {
 		for (int i = 0; i < 12; i++) {
 			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] + 5, 230});
 		}
+		//ghost3
+		//locations3.add(new int[] {220,235});
+		locations3.add(new int[] {220,232});
+		locations3.add(new int[] {224,230});
+		for (int i = 0; i < 3; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] + 5, 230});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations3.add(new int[] {239, locations3.get(locations3.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] + 5, 180});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations3.add(new int[] {289, locations3.get(locations3.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 39; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] - 5, 130});
+		}
+		for (int i = 0; i < 13; i++) {
+			locations3.add(new int[] {94, locations3.get(locations3.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 16; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] - 5, 65});
+		}
+		for (int i = 0; i < 22; i++) {
+			locations3.add(new int[] {14, locations3.get(locations3.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 17; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] + 5, 175});
+		}
+		for (int i = 0; i < 58; i++) {
+			locations3.add(new int[] {99, locations3.get(locations3.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 17; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] - 5, 465});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations3.add(new int[] {14, locations3.get(locations3.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 80; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] + 5, 515});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations3.add(new int[] {414, locations3.get(locations3.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 15; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] - 5, 465});
+		}
+		for (int i = 0; i < 57; i++) {
+			locations3.add(new int[] {339, locations3.get(locations3.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 16; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] + 5, 180});
+		}
+		for (int i = 0; i < 23; i++) {
+			locations3.add(new int[] {419, locations3.get(locations3.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 35; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] - 5, 65});
+		}
+		for (int i = 0; i < 13; i++) {
+			locations3.add(new int[] {244, locations3.get(locations3.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 20; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] - 5, 130});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations3.add(new int[] {144, locations3.get(locations3.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] + 5, 180});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations3.add(new int[] {194, locations3.get(locations3.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 7; i++) {
+			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] + 5, 230});
+			if (i == 6) System.out.println(locations3.get(locations3.size() - 1)[0]);
+		}
 		
 		
 	
@@ -533,7 +613,7 @@ public class Game extends Application {
 	
 	public void moveGhosts(Ghost ghost, Ghost ghost2, Ghost ghost3, Ghost ghost4) {
 	
-	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.2), ev -> {
+	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
 		if (respawn) {
 			counter[0] = 0;
 			respawn = false;
@@ -550,7 +630,7 @@ public class Game extends Application {
 	timeline.setCycleCount(Animation.INDEFINITE);
 	timeline.play();
 	
-	Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), ev -> {
+	Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
 		if (respawn2) {
 			counter2[0] = 0;
 			respawn2 = false;
@@ -567,22 +647,22 @@ public class Game extends Application {
 	timeline2.setCycleCount(Animation.INDEFINITE);
 	timeline2.play();
 	
-//	Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
-//		if (respawn3) {
-//			counter3[0] = 0;
-//			respawn3 = false;
-//		}
-//		ghost3.updateUI(locations3.get(counter3[0])[0], locations3.get(counter3[0])[1]);
-//		counter3[0] = counter3[0] + 1;
-//		if (counter3[0] == locations3.size()) {
-//			counter3[0] = 0;
-//			
-//		}
-//		
-//	}));
-//	timeline3.setAutoReverse(true);
-//	timeline3.setCycleCount(Animation.INDEFINITE);
-//	timeline3.play();
+	Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
+		if (respawn3) {
+			counter3[0] = 0;
+			respawn3 = false;
+		}
+		ghost3.updateUI(locations3.get(counter3[0])[0], locations3.get(counter3[0])[1]);
+		counter3[0] = counter3[0] + 1;
+		if (counter3[0] == locations3.size()) {
+			counter3[0] = 0;
+			
+		}
+		
+	}));
+	timeline3.setAutoReverse(true);
+	timeline3.setCycleCount(Animation.INDEFINITE);
+	timeline3.play();
 	
 	
 	
