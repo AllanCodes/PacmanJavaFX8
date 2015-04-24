@@ -349,7 +349,7 @@ public class Game extends Application {
    
     
     private void loadGame() {
-    	playerImage = new Image("Images/pacRIGHT1.png");
+    	playerImage = new Image("Images/player.png");
         enemyImage  = new Image("Images/PINK1.png" );
         enemyImage2 = new Image("Images/Orange1.png");
         enemyImage3 = new Image("Images/CYAN1.png");
