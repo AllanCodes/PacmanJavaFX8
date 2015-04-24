@@ -128,7 +128,7 @@ public class Game extends Application {
                 // player input
             	 changeSpot();
                 player.processInput();
-                //checkGhosts();
+                checkGhosts();
 
                 // move Pacman and ghost sprites.
                 player.move();
@@ -143,7 +143,7 @@ public class Game extends Application {
 
                 // update Pacman and ghost sprites in scene
                 player.updateUI();
-               // enemies.forEach(sprite -> sprite.updateUI());
+              // enemies.forEach(sprite -> sprite.updateUI());
 
 
                 // update score, health, etc
@@ -717,7 +717,7 @@ public class Game extends Application {
 	public void moveGhosts(Ghost ghost, Ghost ghost2, Ghost ghost3, Ghost ghost4) {
 	
 		
-	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
+	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.07), ev -> {
 		if (respawn) {
 			counter[0] = 0;
 			respawn = false;
@@ -734,7 +734,7 @@ public class Game extends Application {
 	timeline.setCycleCount(Animation.INDEFINITE);
 	//timeline.play();
 	
-	Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
+	Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.07), ev -> {
 		if (respawn2) {
 			counter2[0] = 0;
 			respawn2 = false;
@@ -751,7 +751,7 @@ public class Game extends Application {
 	timeline2.setCycleCount(Animation.INDEFINITE);
 //	timeline2.play();
 	
-	Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
+	Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(0.07), ev -> {
 		if (respawn3) {
 			counter3[0] = 0;
 			respawn3 = false;
@@ -768,7 +768,7 @@ public class Game extends Application {
 	timeline3.setCycleCount(Animation.INDEFINITE);
 	//timeline3.play();
 	
-	Timeline timeline4 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
+	Timeline timeline4 = new Timeline(new KeyFrame(Duration.seconds(0.07), ev -> {
 		if (respawn4) {
 			counter4[0] = 0;
 			respawn4 = false;
