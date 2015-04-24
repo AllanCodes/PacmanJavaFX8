@@ -128,11 +128,11 @@ public class Game extends Application {
                 // player input
             	 changeSpot();
                 player.processInput();
-             
+                //checkGhosts();
 
                 // move Pacman and ghost sprites.
                 player.move();
-               // enemies.forEach(sprite -> sprite.spriteMovement());
+               // enemies.forEach(sprite -> sprite.move());
                 
 
                 // check for collisions
@@ -143,7 +143,7 @@ public class Game extends Application {
 
                 // update Pacman and ghost sprites in scene
                 player.updateUI();
-                //enemies.forEach(sprite -> sprite.updateUI());
+               // enemies.forEach(sprite -> sprite.updateUI());
 
 
                 // update score, health, etc
@@ -156,6 +156,23 @@ public class Game extends Application {
         };	
         gameLoop.start();
         
+    }
+    public void checkGhosts() {
+    	for( Rectangle r: r) {
+			for( Ghost enemy: enemies) {
+				if( enemy.collidesWith(r)) {
+
+					enemy.collision2 = true;
+				}
+			}
+		}
+		for( Ghost enemy: enemies) {
+			if( enemy.collision2) {
+				enemy.freeze();
+				enemy.dir = (int)(Math.random()*4);
+				enemy.collision2 = false;
+			}
+		}
     }
 
     public void changeSpot() {
@@ -598,11 +615,97 @@ public class Game extends Application {
 		}
 		for (int i = 0; i < 7; i++) {
 			locations3.add(new int[] {locations3.get(locations3.size() - 1)[0] + 5, 230});
-			if (i == 6) System.out.println(locations3.get(locations3.size() - 1)[0]);
 		}
-		
-		
-	
+		//ghost4
+		//locations4.add(new int[] {220,232});
+		locations4.add(new int[] {224,230});
+		for (int i = 0; i < 7; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 230});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {189, locations4.get(locations4.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 180});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {139, locations4.get(locations4.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 40; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] + 5, 130});
+		}
+		for (int i = 0; i < 47; i++) {
+			locations4.add(new int[] {339, locations4.get(locations4.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 20; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 365});
+		}
+		for (int i = 0; i < 11; i++) {
+			locations4.add(new int[] {239, locations4.get(locations4.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] + 5, 420});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {289, locations4.get(locations4.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 470});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {239, locations4.get(locations4.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 520});
+		}
+		for (int i = 0; i < 12; i++) {
+			locations4.add(new int[] {189, locations4.get(locations4.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 460});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {139, locations4.get(locations4.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 410});
+		}
+		for (int i = 0; i < 56; i++) {
+			locations4.add(new int[] {89, locations4.get(locations4.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 15; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 130});
+		}
+		for (int i = 0; i < 13; i++) {
+			locations4.add(new int[] {14, locations4.get(locations4.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 36; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] + 5, 65});
+		}
+		for (int i = 0; i < 13; i++) {
+			locations4.add(new int[] {194, locations4.get(locations4.size() - 1)[1] + 5});
+		} 
+		for (int i = 0; i < 10; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] + 5, 130});
+		} 
+		for (int i = 0; i < 13; i++) {
+			locations4.add(new int[] {244, locations4.get(locations4.size() - 1)[1] - 5});
+		} 
+		for (int i = 0; i < 19; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] + 5, 65});
+		}
+		for (int i = 0; i < 43; i++) {
+			locations4.add(new int[] {334, locations4.get(locations4.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 8; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 280});
+		}
+		for (int i = 0; i < 11; i++) {
+			locations4.add(new int[] {294, locations4.get(locations4.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 9; i++) {
+			locations4.add(new int[] {locations4.get(locations4.size() - 1)[0] - 5, 225});
+		}
 		
 	}
 	
@@ -613,6 +716,7 @@ public class Game extends Application {
 	
 	public void moveGhosts(Ghost ghost, Ghost ghost2, Ghost ghost3, Ghost ghost4) {
 	
+		
 	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
 		if (respawn) {
 			counter[0] = 0;
@@ -628,7 +732,7 @@ public class Game extends Application {
 	}));
 	timeline.setAutoReverse(true);
 	timeline.setCycleCount(Animation.INDEFINITE);
-	timeline.play();
+	//timeline.play();
 	
 	Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
 		if (respawn2) {
@@ -645,7 +749,7 @@ public class Game extends Application {
 	}));
 	timeline2.setAutoReverse(true);
 	timeline2.setCycleCount(Animation.INDEFINITE);
-	timeline2.play();
+//	timeline2.play();
 	
 	Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
 		if (respawn3) {
@@ -662,9 +766,33 @@ public class Game extends Application {
 	}));
 	timeline3.setAutoReverse(true);
 	timeline3.setCycleCount(Animation.INDEFINITE);
-	timeline3.play();
+	//timeline3.play();
 	
+	Timeline timeline4 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
+		if (respawn4) {
+			counter4[0] = 0;
+			respawn4 = false;
+		}
+		ghost4.updateUI(locations4.get(counter4[0])[0], locations4.get(counter4[0])[1]);
+		counter4[0] = counter4[0] + 1;
+		if (counter4[0] == locations4.size()) {
+			counter4[0] = 0;
+			
+		}
+		
+	}));
+	timeline4.setAutoReverse(true);
+	timeline4.setCycleCount(Animation.INDEFINITE);
+	//timeline4.play();
 	
+	Timeline timeline8 = new Timeline(new KeyFrame(Duration.seconds(3), ev -> {
+		timeline.play();
+		timeline2.play();
+		timeline3.play();
+		timeline4.play();
+		
+	}));
+	timeline8.play();
 	
 	}
   
@@ -700,18 +828,22 @@ public class Game extends Application {
         	}
             if( player.collidesWith(enemy)) {
             	if (!hollow) {
-            		if (checkIt == 0) {
-                		respawn = true;
-                		}
-                		if(checkIt == 1) {
-                			respawn2 = true;
-                		}
-                		if (checkIt == 2) {
-                			respawn3 = true;
-                		}
-                		if (checkIt == 3) {
-                			respawn4 = true;
-                		}
+//            		if (checkIt == 0) {
+//                		respawn = true;
+//                		}
+//                		if(checkIt == 1) {
+//                			respawn2 = true;
+//                		}
+//                		if (checkIt == 2) {
+//                			respawn3 = true;
+//                		}
+//                		if (checkIt == 3) {
+//                			respawn4 = true;
+//                		}
+            		respawn = true;
+            		respawn2 = true;
+            		respawn3 = true;
+            		respawn4 = true;
             		 collision = true;
             		 player.freeze();
             		 player.x = 0;
@@ -747,7 +879,7 @@ public class Game extends Application {
 	                     }
 	                     lives.get(totalLife).setFill(Color.BLACK);
 	                     
-	                    enemy.updateUI(222, 270);
+	                    //enemy.updateUI(222, 270);
 	                    player.updateUI(225,412);
 	                    player.dx = 0;
 	                    player.dy = 0;

@@ -9,5 +9,24 @@ public class Ghost extends Sprite {
         super(layer, image, x, y, dx, dy);
     }
     
+    public void move() { // move the sprite
+   	   	
+    	switch (dir){
+    	case 0: dy = -1;
+    			dx=0;
+    			break;
+    	case 1 :dy = 1;
+    			dx=0;
+    	break;
+    	case 2 :dx = 1;
+    			dy=0;
+    	break;
+    	case 3 :dx = -1;
+    			dy=0;
+    	break;
+    	}
+    	
+    	super.move();
 
+}
 }

@@ -21,6 +21,8 @@ public abstract class Sprite {
     protected double h;  // height of the sprite image
     protected double frameWidth = 20;
     protected double frameHeight = 20;
+    int dir = 0;
+    protected boolean collision2 = false;
 
     public Sprite(Pane layer, Image image, double x, double y, double dx, double dy) {
 
