@@ -3,8 +3,8 @@
  * Allan Eivazian
  * Basic Pacman Game
  * CIS 016
- * Assignment 13
- * Collision, sound, single ghost collision 
+ * Assignment 14
+ * 
  *
  */
 package GamePKG;
@@ -53,7 +53,7 @@ public class Game extends Application {
     Image BG_Maze;
     
     MySounds mySounds;
-    boolean respawn = false;
+    boolean respawn = false, respawn2 = false, respawn3 = false, respawn4 = false;
     protected ArrayList<Rectangle> r;
     protected Pacman player;
     protected ArrayList<Ghost> enemies = new ArrayList<>();
@@ -199,52 +199,7 @@ public class Game extends Application {
     	}
     	
     	r = new ArrayList<Rectangle>();
-//    	r.add(new Rectangle(5, 43, 440,12));
-//		r.add(new Rectangle(216, 56, 15,63));
-//		r.add(new Rectangle(1, 46, 7,162));
-//		r.add(new Rectangle(439, 46, 8,157));
-//		r.add(new Rectangle(43,88,43,29));
-//		r.add(new Rectangle(362, 88, 43,29));
-//		r.add(new Rectangle(123, 88, 58,30));
-//		r.add(new Rectangle(266, 88, 58,30));
-//		r.add(new Rectangle(42, 151, 42,17));
-//		r.add(new Rectangle(362, 151, 42,17));
-//		r.add(new Rectangle(171, 152, 106,14));
-//		r.add(new Rectangle(171, 343, 106,14));
-//		r.add(new Rectangle(171, 440, 106,14));
-//		r.add(new Rectangle(122, 151, 15,108));
-//		r.add(new Rectangle(312, 151, 15,108));
-//		r.add(new Rectangle(139, 200, 41,16));
-//		r.add(new Rectangle(266, 200, 41,16));
-//		r.add(new Rectangle(1, 198, 82,61));
-//		r.add(new Rectangle(1, 299, 82,61));
-//		r.add(new Rectangle(364, 201, 82,59));
-//		r.add(new Rectangle(364, 299, 82,59));
-//		r.add(new Rectangle(120, 298, 15,59));
-//		r.add(new Rectangle(312, 298, 15,59));
-//		r.add(new Rectangle(124, 392, 55,15));
-//		r.add(new Rectangle(266, 392, 55,15));
-//		r.add(new Rectangle(440, 357, 7,188));
-//		r.add(new Rectangle(1, 357, 7,188));
-//		r.add(new Rectangle(217, 169, 15,43));
-//		r.add(new Rectangle(217, 362, 15,43));
-//		r.add(new Rectangle(217, 454, 15,43));
-//		r.add(new Rectangle(9, 440, 30,16));
-//		r.add(new Rectangle(410, 440, 30,16));
-//		r.add(new Rectangle(43, 488, 137,16));
-//		r.add(new Rectangle(267, 488, 137,16));
-//		r.add(new Rectangle(122, 442, 14,45));
-//		r.add(new Rectangle(312, 442, 14,45));
-//		r.add(new Rectangle(1, 535, 442,8));
-//		r.add(new Rectangle(44, 393, 39,16));
-//		r.add(new Rectangle(362, 393, 39,16));
-//		r.add(new Rectangle(361, 393, 15,61));
-//		r.add(new Rectangle(73, 393, 15,61));
-//		r.add(new Rectangle(170, 247, 37,11));
-//		r.add(new Rectangle(241, 247, 37,11));
-//		r.add(new Rectangle(170, 301, 108,9));
-//		r.add(new Rectangle(168, 248, 9,61));
-//		r.add(new Rectangle(271, 248, 9,61));
+
     	//top inner walls
     	r.add(new Rectangle(40, 88, 48, 32)); //1
     	r.add(new Rectangle(120, 88, 64, 32)); //2
@@ -431,27 +386,26 @@ public class Game extends Application {
 
 	
 	ArrayList<int []> locations = new ArrayList<int []>();
+	ArrayList<int []> locations2 = new ArrayList<int []>();
+	ArrayList<int []> locations3 = new ArrayList<int []>();
+	ArrayList<int []> locations4 = new ArrayList<int []>();
 	
 	public void updateLoc() {
 		//left inner
+		locations.add(new int[] {220,235});
+		locations.add(new int[] {220,232});
 		locations.add(new int[] {224,230});
 		for (int i = 0; i < 15; i++) {
 			locations.add(new int[] {locations.get(locations.size() - 1)[0] - 5, 230});
 		}
-		//down left inner
 		for (int i = 0; i < 29; i++) {
 			locations.add(new int[] {144, locations.get(locations.size() - 1)[1] + 5});
 		}
-		
-
-		//go left
 		for (int i = 0; i < 26; i++) {
 			locations.add(new int[] {locations.get(locations.size() - 1)[0] - 5, 375});
 		}
-		
 		for (int i = 0; i < 8; i++) {
-			locations.add(new int[] {14, locations.get(locations.size() - 1)[1] + 5});
-			
+			locations.add(new int[] {14, locations.get(locations.size() - 1)[1] + 5});	
 		}
 		for (int i = 0; i < 6; i++) {
 			locations.add(new int[] {locations.get(locations.size() - 1)[0] + 5, 415});		
@@ -499,16 +453,87 @@ public class Game extends Application {
 			locations.add(new int[] {locations.get(locations.size() - 1)[0] - 5, 230});
 		}
 		
+		//ghost2
+		locations2.add(new int[] {220,235});
+		locations2.add(new int[] {220,232});
+		locations2.add(new int[] {224,230});
+		for (int i = 0; i < 13; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] + 5, 230});
+		}
+		for (int i = 0; i < 28; i++) {
+			locations2.add(new int[] {289, locations2.get(locations2.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] - 5, 370});
+		}
+		for (int i = 0; i < 10; i++) {
+			locations2.add(new int[] {239, locations2.get(locations2.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 28; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] - 5, 420});
+		}
+		for (int i = 0; i < 9; i++) {
+			locations2.add(new int[] {99, locations2.get(locations2.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 17; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] - 5, 465});
+		}
+		for (int i = 0; i < 11; i++) {
+			locations2.add(new int[] {14, locations2.get(locations2.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 81; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] + 5, 520});
+		}
+		for (int i = 0; i < 11; i++) {
+			locations2.add(new int[] {419, locations2.get(locations2.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 16; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] - 5, 465});
+		}
+		for (int i = 0; i < 80; i++) {
+			locations2.add(new int[] {339, locations2.get(locations2.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 18; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] - 5, 65});
+		}
+		for (int i = 0; i < 14; i++) {
+			locations2.add(new int[] {249, locations2.get(locations2.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i < 46; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] - 5, 135});
+		}
+		for (int i = 0; i < 9; i++) {
+			locations2.add(new int[] {19, locations2.get(locations2.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i <14; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] + 5, 180});
+		}
+		for (int i = 0; i <18; i++) {
+			locations2.add(new int[] {89, locations2.get(locations2.size() - 1)[1] + 5});
+		}
+		for (int i = 0; i <11; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] + 5, 270});
+		}
+		for (int i = 0; i < 9; i++) {
+			locations2.add(new int[] {144, locations2.get(locations2.size() - 1)[1] - 5});
+		}
+		for (int i = 0; i < 12; i++) {
+			locations2.add(new int[] {locations2.get(locations2.size() - 1)[0] + 5, 230});
+		}
+		
 		
 	
 		
 	}
 	
 	int [] counter = {0};
+	int [] counter2 = {0};
+	int [] counter3 = {0};
+	int [] counter4 = {0};
 	
 	public void moveGhosts(Ghost ghost, Ghost ghost2, Ghost ghost3, Ghost ghost4) {
 	
-	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.1), ev -> {
+	Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.2), ev -> {
 		if (respawn) {
 			counter[0] = 0;
 			respawn = false;
@@ -524,7 +549,43 @@ public class Game extends Application {
 	timeline.setAutoReverse(true);
 	timeline.setCycleCount(Animation.INDEFINITE);
 	timeline.play();
+	
+	Timeline timeline2 = new Timeline(new KeyFrame(Duration.seconds(0.2), ev -> {
+		if (respawn2) {
+			counter2[0] = 0;
+			respawn2 = false;
+		}
+		ghost2.updateUI(locations2.get(counter2[0])[0], locations2.get(counter2[0])[1]);
+		counter2[0] = counter2[0] + 1;
+		if (counter2[0] == locations2.size()) {
+			counter2[0] = 0;
+			
+		}
 		
+	}));
+	timeline2.setAutoReverse(true);
+	timeline2.setCycleCount(Animation.INDEFINITE);
+	timeline2.play();
+	
+//	Timeline timeline3 = new Timeline(new KeyFrame(Duration.seconds(0.05), ev -> {
+//		if (respawn3) {
+//			counter3[0] = 0;
+//			respawn3 = false;
+//		}
+//		ghost3.updateUI(locations3.get(counter3[0])[0], locations3.get(counter3[0])[1]);
+//		counter3[0] = counter3[0] + 1;
+//		if (counter3[0] == locations3.size()) {
+//			counter3[0] = 0;
+//			
+//		}
+//		
+//	}));
+//	timeline3.setAutoReverse(true);
+//	timeline3.setCycleCount(Animation.INDEFINITE);
+//	timeline3.play();
+	
+	
+	
 	}
   
 
@@ -536,21 +597,46 @@ public class Game extends Application {
     Ghost ghostTemp;
     int totalLife = 2; //total lives
    
+    int checkIt = -1;
     
     private void checkCollisions() {
+    	
 
         collision = false;
    
         
         for( Ghost enemy: enemies) {
+        	if (enemy == (enemies.get(0))) {
+        		checkIt = 0;
+        	}
+        	if (enemy == (enemies.get(1))) {
+        		checkIt = 1;
+        	}
+        	if (enemy == (enemies.get(2))) {
+        		checkIt = 2;
+        	}
+        	if (enemy == (enemies.get(3))) {
+        		checkIt = 3;
+        	}
             if( player.collidesWith(enemy)) {
             	if (!hollow) {
-            		
+            		if (checkIt == 0) {
+                		respawn = true;
+                		}
+                		if(checkIt == 1) {
+                			respawn2 = true;
+                		}
+                		if (checkIt == 2) {
+                			respawn3 = true;
+                		}
+                		if (checkIt == 3) {
+                			respawn4 = true;
+                		}
             		 collision = true;
             		 player.freeze();
             		 player.x = 0;
             		 player.y = 0;
-            		 player.removeFromLayer(); 
+            		// player.removeFromLayer(); 
                      mySounds.playClip(4);
                      totalLife -= 1;
 	                     if (totalLife == -1) {
@@ -581,18 +667,31 @@ public class Game extends Application {
 	                     }
 	                     lives.get(totalLife).setFill(Color.BLACK);
 	                     
-	                     for (Ghost ghost : enemies) {
-                    		 ghost.removeFromLayer();
-                    	 }
-                     loadGame();
+	                    enemy.updateUI(222, 270);
+	                    player.updateUI(225,412);
+	                    player.dx = 0;
+	                    player.dy = 0;
+//	                     for (Ghost ghost : enemies) {
+//                    		 ghost.removeFromLayer();
+//                    	 }
+                   //  loadGame();
                      break;
             	}
             	else if (hollow) {
             		collision = true;
             		enemy.updateUI(200,280);
+            		if (checkIt == 0) {
             		respawn = true;
-                    //enemy.removeFromLayer();
-                    //ghostTemp = enemy;
+            		}
+            		if(checkIt == 1) {
+            			respawn2 = true;
+            		}
+            		if (checkIt == 2) {
+            			respawn3 = true;
+            		}
+            		if (checkIt == 3) {
+            			respawn4 = true;
+            		}
                     mySounds.playClip(3);
             	}
                
